@@ -31,8 +31,9 @@ public class LoginController {
 	@POST
 	@PermitAll
 	public Response getLogin(@Valid Login login) {
-		Employee employee = loginDAOImpl.fetchLoginInfo(login).getEmployee();
-		return Response.ok().header("AUTH_KEY", employee.getRole().getRoleName().toLowerCase()).entity(employee)
+		Login login1 = loginDAOImpl.fetchLoginInfo(login);
+		Employee employee = login1.getEmployee();
+		return Response.ok().header("AUTH_KEY", employee.getRole().getRoleName()).entity(employee)
 				.build();
 	}
 

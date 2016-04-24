@@ -56,7 +56,9 @@
 	<script src="module/nurse/controllers.js"></script>
 	<script src="module/doctor/services.js"></script>
 	<script src="module/doctor/controllers.js"></script>
-<!-- 	<script src="module/nurse/commonController.js"></script> -->
+	<script src="module/lab/services.js"></script>
+	<script src="module/lab/controllers.js"></script>
+	<!-- 	<script src="module/nurse/commonController.js"></script> -->
 
 
 	<!-- modules/home -->

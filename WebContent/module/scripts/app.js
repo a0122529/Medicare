@@ -7,13 +7,14 @@ angular.module('Contact', []);
 angular.module('About', []);
 angular.module('Patient', []);
 angular.module('Doctor', []);
+angular.module('Lab', []);
 //angular.module('commonApp', []);
 
 angular
 		.module(
 				'BasicHttpAuthExample',
 				[ 'Authentication', 'Home', 'Contact', 'About', 'Patient',
-						'Doctor', /*'commonApp',*/ 'ngRoute', 'ngCookies' ])
+						'Doctor', 'Lab', 'ngRoute', 'ngCookies' ])
 
 		.config([ '$routeProvider', function($routeProvider) {
 
@@ -29,7 +30,7 @@ angular
 			})
 			// route for the about page
 			.when('/doctor', {
-				templateUrl : 'module/doctor/views/DoctorHome.jsp',
+				templateUrl : 'module/doctor/views/DoctorPanel.jsp',
 				controller : 'DoctorController'
 			})
 
@@ -37,6 +38,17 @@ angular
 				templateUrl : 'module/doctor/views/patientEncounterDetails.jsp',
 				controller : 'PatientDetailsController',
 				refNumber : 'refNumber'
+			})
+			
+				.when('/labRequestsAndResults', {
+				templateUrl : 'module/doctor/views/LabTests.jsp',
+				controller : 'DoctorLabController',
+//				encounter : 'encounter'
+			})
+			
+			.when('/prescription', {
+				templateUrl : 'module/doctor/views/Prescription.jsp',
+				controller : 'DoctorLabController',
 			})
 
 			// route for the contact page
@@ -48,6 +60,11 @@ angular
 			.when('/createEncounter', {
 				templateUrl : 'module/nurse/views/createPatientEncounter.jsp',
 				controller : 'EncounterController'
+			})
+			
+			.when('/lab', {
+				templateUrl : 'module/lab/views/LabHome.jsp',
+				controller : 'LabController'
 			})
 
 			.otherwise({

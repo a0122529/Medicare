@@ -40,13 +40,9 @@ public class Patient extends Person {
 
 	private String phone;
 
-	// @OneToOne(fetch = FetchType.EAGER)
-	// @JoinColumn(name = "insuranceId")
-	// private Insurance insurance;
-
-	// @OneToOne(fetch = FetchType.EAGER)
-	// @JoinColumn(name = "empId")
-	// private Employee primaryDoc;
+	@Transient
+	@OneToMany(mappedBy = "patient", fetch = FetchType.EAGER)
+	private List<Encounter> encounterList = new ArrayList<>();
 
 	public String getDocName() {
 		return docName;
@@ -63,10 +59,6 @@ public class Patient extends Person {
 	public void setPhone(String phone) {
 		this.phone = phone;
 	}
-
-	@Transient
-	@OneToMany(mappedBy = "patient", fetch = FetchType.EAGER)
-	private List<Encounter> encounterList;
 
 	public List<Encounter> getEncounterList() {
 		return encounterList;

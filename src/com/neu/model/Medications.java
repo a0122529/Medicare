@@ -18,18 +18,7 @@ public class Medications {
 	private int medId;
 
 	private String name;
-	
-	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "encounterId")
-	private Encounter encounter;
 
-	public Encounter getEncounter() {
-		return encounter;
-	}
-
-	public void setEncounter(Encounter encounter) {
-		this.encounter = encounter;
-	}
 
 	public int getMedId() {
 		return medId;

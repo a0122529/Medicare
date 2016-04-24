@@ -18,6 +18,12 @@
 
         };
         
+        	service.AllDoctors = function(callback){
+        		 $http.get('http://localhost:8080/MedicalFinalProject/rest/nurse/alldoctors')
+        		 .success(function (data, status, header, config){
+        			 callback(data, header);
+        		 });
+        	};
         return service;
     }])
 
@@ -45,18 +51,18 @@
 		    		
        service.AddEncounter = function(encounter, vitalSign, allergies, symptoms, medications, callback){
 //    	   alert("encounter is " + JSON.stringify(encounter));
-    	   encounter.vitalSign = vitalSign;
-    	   encounter.allergiyList = [allergies];
-    	   encounter.symptomsList = [symptoms];
-    	   encounter.medList = [medications];
     	   var patient= {};
     	   patient.refNumber = $rootScope.refNumber1;
+    	   encounter.vitalSign = vitalSign;
+    	   encounter.allergy = allergies;
+    	   encounter.symptom = symptoms;
+    	   encounter.medication = medications;
     	   patient.encounterList = [encounter];
+//    	   alert("patient is " + JSON.stringify(patient));
         	$http.post('http://localhost:8080/MedicalFinalProject/rest/nurse/addEncounterDetails', patient)
             .success(function (data, status, headers, config) {
                 callback(data,headers);
             });
         };
         return service;
-     }]);
- 
+		    }]);

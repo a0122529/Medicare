@@ -1,7 +1,11 @@
 package com.neu.controller;
 
+import java.util.ArrayList;
+
+import javax.annotation.security.PermitAll;
 import javax.annotation.security.RolesAllowed;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
@@ -10,7 +14,12 @@ import javax.ws.rs.core.MediaType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
+import com.neu.dao.impl.DoctorDAOImpl;
+import com.neu.dao.impl.LabDAOImpl;
+import com.neu.dao.impl.LoginDAOImpl;
+import com.neu.dao.impl.NurseDAOImpl;
 import com.neu.dao.impl.PatientDAOImpl;
+import com.neu.model.Employee;
 import com.neu.model.Patient;
 
 @Controller
@@ -22,7 +31,15 @@ public class NurseController {
 	@Autowired
 	private PatientDAOImpl patientDAOImpl;
 	
+	@Autowired
+	private NurseDAOImpl nurseDAOImpl;
 	
+
+	
+
+//	@Autowired
+//	private DoctorDAOImpl doctorDAOImpl;
+
 	@POST
 	@Path("/addPatient")
 	// @PermitAll
@@ -30,7 +47,7 @@ public class NurseController {
 	public void addPatient(Patient patient) {
 		patientDAOImpl.addPatient(patient);
 	}
-	
+
 	@POST
 	@RolesAllowed("nurse")
 	@Path("/addEncounterDetails")
@@ -39,4 +56,14 @@ public class NurseController {
 		patientDAOImpl.addPatientEncounter(patient);
 
 	}
+
+	@GET
+//	@RolesAllowed("nurse")
+	@PermitAll
+	@Path("/alldoctors")
+	public ArrayList<Employee> getAllDocs() {
+		ArrayList<Employee> empList = nurseDAOImpl.findSpecificEmployees(1);
+		return empList;
+	}
+
 }

@@ -9,6 +9,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
@@ -29,19 +30,34 @@ public class Employee extends Person {
 	@OneToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "roleId")
 	private Role role;
+	
 
 	@Transient
 	private List<Patient> patientList;
+	
+	private String workplace;
+
+	@Transient
+	@OneToMany(mappedBy = "employee", fetch = FetchType.EAGER)
+	private List<WorkRequest> labTestList = new ArrayList<>();
+
+	public List<WorkRequest> getLabTestList() {
+		return labTestList;
+	}
+
+	public void setLabTestList(List<WorkRequest> labTestList) {
+		this.labTestList = labTestList;
+	}
 
 	public List<Patient> getPatientList() {
 		return patientList;
 	}
-	
+
 	public void setPatientList(List<Patient> patientList) {
 		this.patientList = patientList;
 	}
 
-	private String workplace;
+
 
 	public Role getRole() {
 		return role;
@@ -58,5 +74,6 @@ public class Employee extends Person {
 	public void setWorkplace(String workplace) {
 		this.workplace = workplace;
 	}
+
 
 }

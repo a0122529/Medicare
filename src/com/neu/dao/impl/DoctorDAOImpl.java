@@ -12,21 +12,29 @@ import com.neu.dao.DoctorDAO;
 import com.neu.model.Employee;
 import com.neu.model.Encounter;
 import com.neu.model.Patient;
+import com.neu.model.WorkRequest;
 
 @Component
 public class DoctorDAOImpl extends DAO implements DoctorDAO {
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public ArrayList<Employee> findAllDoctors(int roleId) {
 		// TODO Auto-generated method stub
 		ArrayList<Employee> allDoctors = new ArrayList<>();
 		Session session = getSession();
-		Transaction tx = session.getTransaction();
-		Query query = session.createQuery("from Employee where roleId:=roleId");
-		query.setInteger("roleId", roleId);
-		allDoctors = (ArrayList<Employee>) query.list();
-		tx.commit();
-		session.close();
+		try {
+			Transaction tx = session.beginTransaction();
+
+			Query query = session.createQuery("from Employee");
+			// query.setInteger("roleId", roleId);
+			allDoctors = (ArrayList<Employee>) query.list();
+			tx.commit();
+		} catch (Exception e) {
+			System.out.println(e);
+		} finally {
+			session.close();
+		}
 		return allDoctors;
 	}
 
@@ -35,17 +43,23 @@ public class DoctorDAOImpl extends DAO implements DoctorDAO {
 		// TODO Auto-generated method stub
 		ArrayList<Patient> allPatients = new ArrayList<>();
 		Session session = getSession();
-		Transaction tx = session.getTransaction();
-		Query query = session.createQuery("from Patient");
-		// query.setInteger("roleId", roleId);
-		allPatients = (ArrayList<Patient>) query.list();
-		tx.commit();
-		session.close();
+		try {
+			Transaction tx = session.beginTransaction();
+			Query query = session.createQuery("from Patient");
+			// query.setInteger("roleId", roleId);
+			allPatients = (ArrayList<Patient>) query.list();
+			tx.commit();
+		} catch (Exception e) {
+			System.out.println(e);
+		} finally {
+			session.close();
+
+		}
 		return allPatients;
 	}
 
 	@Override
-	public Patient searchPatientByRefNum(String patRefNum) {
+	public ArrayList<Encounter> searchPatientByRefNum(String patRefNum) {
 		// TODO Auto-generated method stub
 		Patient patient = new Patient();
 		Session session = getSession();
@@ -53,14 +67,78 @@ public class DoctorDAOImpl extends DAO implements DoctorDAO {
 		Query query = session.createQuery("from Patient where refNumber=:refNumber");
 		query.setString("refNumber", patRefNum);
 		patient = (Patient) query.uniqueResult();
-		System.out.println(patient.getEncounterList().size());
 		Query encountersListQuery = session.createQuery("from Encounter where patientId=:patientId");
 		encountersListQuery.setString("patientId", String.valueOf(patient.getPersonId()));
 		ArrayList<Encounter> encList = (ArrayList<Encounter>) encountersListQuery.list();
-		patient.setEncounterList(encList);
+		// Query symptomsQuery = session.createQuery("from Symptoms where
+		// encounterId =:encounterId");
+		// ArrayList<Symptoms> symList = (ArrayList<Symptoms>)
+		// symptomsQuery.list();
+
+		// System.out.println(patient.getEncounter().getChiefComplaint());
 		tx.commit();
 		session.close();
-		return patient;
+		return encList;
+	}
+
+	@Override
+	public void updateDiagnosis(Encounter encounter) {
+
+		Session session = getSession();
+		try {
+			Transaction tx = session.beginTransaction();
+			session.update(encounter);
+			tx.commit();
+		} catch (Exception e) {
+			System.out.println(e);
+		} finally {
+			session.close();
+		}
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public ArrayList<WorkRequest> createLabRequest(WorkRequest workRequest) {
+		// TODO Auto-generated method stub
+		System.out.println(workRequest.getPatientRefNum());
+		ArrayList<WorkRequest> wr = new ArrayList<>();
+		Session session = getSession();
+		try {
+			Transaction tx = session.beginTransaction();
+			session.save(workRequest);
+
+			Query query = session.createQuery("from WorkRequest where patientRefNum =:refNum");
+			query.setString("refNum", workRequest.getPatientRefNum());
+			wr = (ArrayList<WorkRequest>) query.list();
+			tx.commit();
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.out.println(e);
+		} finally {
+			session.close();
+		}
+		return wr;
+	}
+
+	@Override
+	public ArrayList<WorkRequest> getPatientLabRequest() {
+		// TODO Auto-generated method stub
+		
+		ArrayList<WorkRequest> wr = new ArrayList<>();
+		Session session = getSession();
+		try {
+			Transaction tx = session.beginTransaction();
+			Query query = session.createQuery("from WorkRequest");
+//			query.setString("refNum", refNumber);
+			wr = (ArrayList<WorkRequest>) query.list();
+			tx.commit();
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.out.println(e);
+		} finally {
+			session.close();
+		}
+		return wr;
 	}
 
 }

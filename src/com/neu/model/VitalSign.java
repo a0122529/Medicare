@@ -41,9 +41,6 @@ public class VitalSign {
 
 	private String skinCondition;
 
-	@OneToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "encounterId")
-	private Encounter encounter;
 
 	public long getTimeStamp() {
 		return timeStamp;
@@ -53,14 +50,6 @@ public class VitalSign {
 		this.timeStamp = timeStamp;
 	}
 	
-
-	public Encounter getEncounter() {
-		return encounter;
-	}
-
-	public void setEncounter(Encounter encounter) {
-		this.encounter = encounter;
-	}
 
 	public int getRespRate() {
 		return respRate;

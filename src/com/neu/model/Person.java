@@ -27,7 +27,7 @@ public class Person {
 
 	private String gender;
 
-	private Date dob;
+	private String dob;
 
 	private int age;
 
@@ -55,20 +55,20 @@ public class Person {
 		this.gender = gender;
 	}
 
-	public Date getDob() {
-		return dob;
-	}
-
-	public void setDob(Date dob) {
-		this.dob = dob;
-	}
-
 	public int getAge() {
 		return age;
 	}
 
 	public void setAge(int age) {
 		this.age = age;
+	}
+
+	public String getDob() {
+		return dob;
+	}
+
+	public void setDob(String dob) {
+		this.dob = dob;
 	}
 
 }

@@ -42,13 +42,6 @@ public class PatientDAOImpl extends DAO implements PatientDAO {
 		Query query = session.createQuery("from Patient where refNumber=:refNumber");
 		query.setString("refNumber", patRefNum);
 		patient = (Patient) query.uniqueResult();
-		// System.out.println(patient.getEncounterList().size());
-//		Query encountersListQuery = session.createQuery("from Encounter where patientId=:patientId");
-//		encountersListQuery.setString("patientId", String.valueOf(patient.getPersonId()));
-//		ArrayList<Encounter> encList = (ArrayList<Encounter>) encountersListQuery.list();
-//		if (encList != null) {
-//			patient.setEncounterList(encList);
-//		}
 		tx.commit();
 		session.close();
 		return patient;
@@ -72,30 +65,27 @@ public class PatientDAOImpl extends DAO implements PatientDAO {
 
 	@Override
 	public void addPatientEncounter(Patient patient) {
+		System.out.println("Atleast reached here");
 		Encounter encounter = patient.getEncounterList().get(0);
-		Allergies allergy = encounter.getAllergiyList().get(0);
-		Medications med = encounter.getMedList().get(0);
-		Symptoms sym = encounter.getSymptomsList().get(0);
+		Allergies allergy = encounter.getAllergy();
+		Medications med = encounter.getMedication();
+		Symptoms sym = encounter.getSymptom();
 		VitalSign vitalSign = encounter.getVitalSign();
 		Session session = getSession();
 		Transaction tx = session.beginTransaction();
 		Query findPatient = session.createQuery("from Patient where refNumber=:refNumber");
 		findPatient.setString("refNumber", patient.getRefNumber());
 		Patient foundPatient = (Patient) findPatient.uniqueResult();
-
-		// session.save(encounter.getAllergiyList().get(0));
-		// session.save(encounter.getSymptomsList().get(0));
-		// session.save(encounter.getMedList().get(0));
-		encounter.setPatient(foundPatient);
-		allergy.setEncounter(encounter);
-		sym.setEncounter(encounter);
-		med.setEncounter(encounter);
-		vitalSign.setEncounter(encounter);
-		session.save(encounter);
 		session.save(allergy);
 		session.save(med);
 		session.save(sym);
 		session.save(vitalSign);
+		encounter.setAllergy(allergy);
+		encounter.setSymptom(sym);
+		encounter.setMedication(med);
+		encounter.setVitalSign(vitalSign);
+		encounter.setPatient(foundPatient);
+		session.save(encounter);
 		if (!tx.wasCommitted()) {
 			tx.commit();
 		}

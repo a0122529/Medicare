@@ -9,11 +9,9 @@
 		<property name="hibernate.connection.password"></property>
 		<property name="hbm2ddl.auto">update</property>
 		<property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
-
 		<property name="hibernate.show_sql">false</property>
 		<property name="hibernate.format_sql">false</property>
 		<property name="hibernate.hbm2ddl.auto">update</property>
-
 
 		<mapping class="com.neu.model.Login"></mapping>
 		<mapping class="com.neu.model.Role"></mapping>
@@ -25,6 +23,8 @@
 		<mapping class="com.neu.model.Allergies"></mapping>
 		<mapping class="com.neu.model.Medications"></mapping>
 		<mapping class="com.neu.model.Symptoms"></mapping>
+		<mapping class="com.neu.model.Drugs"></mapping>
+		<mapping class="com.neu.model.WorkRequest"></mapping>
 
 	</session-factory>
 </hibernate-configuration>

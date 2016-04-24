@@ -11,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
@@ -18,42 +19,78 @@ import javax.persistence.Transient;
 @Table(name = "encounter")
 public class Encounter {
 
+	public Encounter() {
+
+	}
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int encounterId;
+
+	public List<WorkRequest> getLabTestList() {
+		return labTestList;
+	}
+
+	public void setLabTestList(List<WorkRequest> labTestList) {
+		this.labTestList = labTestList;
+	}
 
 	private String chiefComplaint;
 
 	private String diagnosis;
 
+	@Transient
+	private String encStatus;
+
 	private String attDoctor;
 
-	public List<Allergies> getAllergiyList() {
-		return allergiyList;
-	}
+	@OneToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "vitalId")
+	private VitalSign vitalSign;
 
-	public void setAllergiyList(List<Allergies> allergiyList) {
-		this.allergiyList = allergiyList;
-	}
+	@OneToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "allergyId")
+	private Allergies allergy;
 
-	public List<Symptoms> getSymptomsList() {
-		return symptomsList;
-	}
+	@OneToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "symId")
+	private Symptoms symptom;
 
-	public void setSymptomsList(List<Symptoms> symptomsList) {
-		this.symptomsList = symptomsList;
-	}
+	@OneToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "medId")
+	private Medications medication;
 
-	public List<Medications> getMedList() {
-		return medList;
-	}
-
-	public void setMedList(List<Medications> medList) {
-		this.medList = medList;
-	}
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "patientId")
+	private Patient patient;
 
 	@Transient
-	private VitalSign vitalSign;
+	@OneToMany(mappedBy = "encounter", fetch = FetchType.EAGER)
+	private List<WorkRequest> labTestList = new ArrayList<>();
+
+	public Allergies getAllergy() {
+		return allergy;
+	}
+
+	public void setAllergy(Allergies allergy) {
+		this.allergy = allergy;
+	}
+
+	public Symptoms getSymptom() {
+		return symptom;
+	}
+
+	public void setSymptom(Symptoms symptom) {
+		this.symptom = symptom;
+	}
+
+	public Medications getMedication() {
+		return medication;
+	}
+
+	public void setMedication(Medications medication) {
+		this.medication = medication;
+	}
 
 	public VitalSign getVitalSign() {
 		return vitalSign;
@@ -61,26 +98,6 @@ public class Encounter {
 
 	public void setVitalSign(VitalSign vitalSign) {
 		this.vitalSign = vitalSign;
-	}
-
-	@Transient
-	@OneToMany(mappedBy = "encounter", fetch = FetchType.EAGER)
-	private List<Allergies> allergiyList = new ArrayList<>();
-
-	@Transient
-	@OneToMany(mappedBy = "encounter", fetch = FetchType.EAGER)
-	private List<Symptoms> symptomsList = new ArrayList<>();
-
-	@Transient
-	@OneToMany(mappedBy = "encounter", fetch = FetchType.EAGER)
-	private List<Medications> medList = new ArrayList<>();
-
-	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "patientId")
-	private Patient patient;
-
-	public Encounter() {
-
 	}
 
 	public String getChiefComplaint() {

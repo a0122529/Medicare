@@ -39,7 +39,7 @@
 			<h2>Patient Information</h2>
 			<div class="col-lg-9">
 				<div class="panel panel-default">
-					<div class="panel-heading">Add Personal Info</div>
+					<div class="panel-heading" >Add Personal Info</div>
 					<div class="panel-body">
 						<div class="controls controls-row row-fluid">
 							<!-- <form name="patientForm" ng-submit="update(patient)" role="form"> -->
@@ -70,18 +70,18 @@
 									</Select>
 								</div>
 								<div class="col-lg-4">
-									</Select> Ethnicity <Select type="text" class="form-control"
+									Ethnicity <Select type="text" class="form-control"
 										id="ethnicity" ng-model="patient.ethnicity" name="ethnicity"
 										style="width: 180px; height: 25px;">
 										<option>Hindu</option>
 									</Select>
 								</div>
 
-								<div class="col-lg-4">
-									</Select> Doctors <Select type="text" class="form-control" id="doctor"
+								<div class="col-lg-4" ng-init="allDoctors()">
+									Doctors <Select type="text" class="form-control" id="doctor"
 										ng-model="patient.docName" name="person"
 										style="width: 180px; height: 25px;">
-										<option>All doctor List</option>
+										<option ng-repeat="doctor in doctorList">{{doctor.name}}</option>
 									</Select>
 								</div>
 
@@ -94,7 +94,7 @@
 										ng-model="patient.phone" style="width: 180px; height: 25px;" />
 								</div>
 								<div class="col-lg-8">
-									</Select> Smoking <Select type="text" class="form-control" id="smoking"
+									Smoking <Select type="text" class="form-control" id="smoking"
 										ng-model="patient.smoking" name="smoking"
 										style="width: 180px; height: 25px;">
 										<option>Yes</option>

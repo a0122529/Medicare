@@ -20,33 +20,79 @@ angular.module('Doctor')
 										+ refNumber).success(
 								function(data, status) {
 									callback(data);
-									alert(JSON.stringify(data));
+
 								});
 
 					};
 					return service;
-				} ]);
+				} ])
 
-//.factory(
-//		'PateintLoadService',
-//		[
-//				'Base64',
-//				'$http',
-//				'$cookieStore',
-//				'$rootScope',
-//				'$timeout',
-//				function(Base64, $http, $cookieStore, $rootScope, $timeout) {
-//					var service = {};
-//
-//					service.LoadPatients = function(doctorId, callback) {
-//
-//						$http.get(
-//								'http://localhost:8080/MedicalFinalProject/rest/doctor/'
-//										+ doctorId).success(
-//								function(data, status) {
-//									callback(data);
-//								});
-//
-//					};
-//					return service;
-//				} ]);
+.factory(
+		'EncounterDetailsService',
+		[
+				'Base64',
+				'$http',
+				'$cookieStore',
+				'$rootScope',
+				'$timeout',
+				function(Base64, $http, $cookieStore, $rootScope, $timeout) {
+					var service = {};
+					service.UPDATEENCOUNTER = function(diagnosis, callback) {
+						var encounter = $rootScope.encounter;
+						encounter.diagnosis = diagnosis;
+//						alert(JSON.stringify(encounter));
+						$http.put(
+								'http://localhost:8080/MedicalFinalProject/rest/doctor/updateDiagnosis'
+										,encounter).success(
+								function(data, status) {
+									callback(data);
+
+								});
+
+					}
+					return service;
+				} ])
+
+ .factory(
+ 'DoctorLabService',
+ [ 'Base64', '$http', '$cookieStore', '$rootScope', '$timeout',
+ function(Base64, $http, $cookieStore, $rootScope, $timeout) {
+	 var service = {};
+	 service.CreateTestReq = function(workRequest, callback) {
+//		 alert(JSON.stringify(workRequest));
+		 $http.post(
+					'http://localhost:8080/MedicalFinalProject/rest/doctor/createLabRequest'
+							,workRequest).success(
+					function(data, status) {
+						callback(data);
+					});
+	 		}
+	 
+	 service.PatientWorkReq =  function(refNumber, callback) {
+//		 alert(refNumber);
+		 $http.get(
+					'http://localhost:8080/MedicalFinalProject/rest/doctor/patientLabRequests'
+							,refNumber).success(
+					function(data, status) {
+						callback(data);
+					});
+	 		}
+	 	return service;
+ 	} ])
+ 	
+ 	.factory(
+		 'PatientPrescription',
+		 [ 'Base64', '$http', '$cookieStore', '$rootScope', '$timeout',
+		 function(Base64, $http, $cookieStore, $rootScope, $timeout) {
+			 var service = {};
+			 service.CreateTestReq = function(workRequest, callback) {
+//				 alert(JSON.stringify(workRequest));
+				 $http.post(
+							'http://localhost:8080/MedicalFinalProject/rest/doctor/createLabRequest'
+									,workRequest).success(
+							function(data, status) {
+								callback(data);
+							});
+			 		}
+			 return service;
+		 	} ]);

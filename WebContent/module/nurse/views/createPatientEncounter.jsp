@@ -38,7 +38,6 @@
 					<ul class="nav nav-sidebar nav-pills nav-stacked">
 						<li><a href="#/nurse.jsp">Create Patient Info</a></li>
 						<li class="active"><a ng-href="#">Create Encounter</a></li>
-
 					</ul>
 				</div>
 

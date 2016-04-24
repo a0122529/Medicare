@@ -7,16 +7,25 @@ app.controller('NurseController', [
 		'$rootScope',
 		'ContactService',
 		function($scope, $rootScope, ContactService) {
-			// var service = {};
 
 			$scope.addPatient = function() {
+
 				$scope.dataLoading = true;
 				ContactService.AddPatient($scope.patient,
 						function(data, header) {
 
 						});
 			};
+
+			$scope.allDoctors = function() {
+//				alert("reached here");
+				$scope.dataLoading = true;
+				ContactService.AllDoctors(function(data, header) {
+					$scope.doctorList = data;
+				});
+			};
 		} ])
+		
 
 app.controller('PatientController', [
 		'$scope',
@@ -40,7 +49,6 @@ app.controller('EncounterController', [
 		'$rootScope',
 		'EncounterService',
 		function($scope, $rootScope, EncounterService) {
-			
 
 			$scope.addEncounter = function() {
 				$scope.dataLoading = true;

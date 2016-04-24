@@ -20,9 +20,6 @@ public class Role implements Serializable {
 	
 	final static Logger logger = Logger.getLogger(Role.class);
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
 	@Id
