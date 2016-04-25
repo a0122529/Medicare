@@ -239,7 +239,7 @@
 						class="btn btn-primary" name="addVital" id="addvital"
 						value="Lab Test Request"></a>
 				</div>
-				<div class="col-sm-5">
+				<div class="col-sm-4">
 					<a ng-href="#/prescription"><input type="button"
 						class="btn btn-primary" name="addVital" id="addvital"
 						value="Prescribe Prescription"></a>

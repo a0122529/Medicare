@@ -2,14 +2,20 @@ package com.neu.model;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CollectionTable;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
 @Entity
 @Table(name = "drugs")
@@ -21,20 +27,32 @@ public class Drugs {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
+	private int drugId;
 
 	private String drugName;
 
-	@ElementCollection
+	@ElementCollection(fetch = FetchType.EAGER)
 	@CollectionTable(name = "drugComponents")
-	private List<String> drugComponents = new ArrayList<>();
+	private List<String> drugComponents;
 
-	public int getId() {
-		return id;
+	@ManyToMany(targetEntity=Encounter.class, mappedBy = "drugs")
+	@LazyCollection(LazyCollectionOption.FALSE)
+	private List<Encounter> encounters;
+
+	public List<String> getDrugComponents() {
+		return drugComponents;
 	}
 
-	public void setId(int id) {
-		this.id = id;
+	public void setDrugComponents(List<String> drugComponents) {
+		this.drugComponents = drugComponents;
+	}
+
+	public int getDrugId() {
+		return drugId;
+	}
+
+	public void setDrugId(int drugId) {
+		this.drugId = drugId;
 	}
 
 	public String getDrugName() {
@@ -45,12 +63,20 @@ public class Drugs {
 		this.drugName = drugName;
 	}
 
-	public List<String> getDrugComponents() {
-		return drugComponents;
+//	public Set<Encounter> getEncounters() {
+//		return encounters;
+//	}
+//
+//	public void setEncounters(Set<Encounter> encounters) {
+//		this.encounters = encounters;
+//	}
+
+	public List<Encounter> getEncounters() {
+		return encounters;
 	}
 
-	public void setDrugComponents(List<String> drugComponents) {
-		this.drugComponents = drugComponents;
+	public void setEncounters(List<Encounter> encounters) {
+		this.encounters = encounters;
 	}
 
 }

@@ -20,6 +20,11 @@
 	integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r"
 	crossorigin="anonymous">
 
+
+<!-- <link rel="stylesheet" href="http://mbenford.github.io/ngTagsInput/css/ng-tags-input.min.css" /> -->
+<!-- link rel="stylesheet"
+	href="http://mbenford.github.io/ngTagsInput/css/ng-tags-input.min.css" />
+ -->
 <!-- Latest compiled and minified JavaScript
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"
@@ -27,6 +32,8 @@
 	crossorigin="anonymous"></script> -->
 <script
 	src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<!-- <script
+	src="http://mbenford.github.io/ngTagsInput/js/ng-tags-input.min.js"></script> -->
 
 </head>
 <body>
@@ -58,7 +65,7 @@
 	<script src="module/doctor/controllers.js"></script>
 	<script src="module/lab/services.js"></script>
 	<script src="module/lab/controllers.js"></script>
-	<!-- 	<script src="module/nurse/commonController.js"></script> -->
+	
 
 
 	<!-- modules/home -->

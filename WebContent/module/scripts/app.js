@@ -8,7 +8,7 @@ angular.module('About', []);
 angular.module('Patient', []);
 angular.module('Doctor', []);
 angular.module('Lab', []);
-//angular.module('commonApp', []);
+// angular.module('commonApp', []);
 
 angular
 		.module(
@@ -16,61 +16,83 @@ angular
 				[ 'Authentication', 'Home', 'Contact', 'About', 'Patient',
 						'Doctor', 'Lab', 'ngRoute', 'ngCookies' ])
 
-		.config([ '$routeProvider', function($routeProvider) {
+		.config(
+				[
+						'$routeProvider',
+						function($routeProvider) {
 
-			$routeProvider.when('/login', {
-				templateUrl : 'module/login/views/login.jsp',
-				controller : 'LoginController',
-				hideMenus : false
-			})
-			//logout function
-			.when('/logout', {
-				templateUrl : 'module/login/views/login.jsp',
-				controller : 'LogoutController'
-			})
-			// route for the about page
-			.when('/doctor', {
-				templateUrl : 'module/doctor/views/DoctorPanel.jsp',
-				controller : 'DoctorController'
-			})
+							$routeProvider
+									.when(
+											'/login',
+											{
+												templateUrl : 'module/login/views/login.jsp',
+												controller : 'LoginController',
+												hideMenus : false
+											})
+									// logout function
+									.when(
+											'/logout',
+											{
+												templateUrl : 'module/login/views/login.jsp',
+												controller : 'LogoutController'
+											})
+									// route for the about page
+									.when(
+											'/doctor',
+											{
+												templateUrl : 'module/doctor/views/DoctorPanel.jsp',
+												controller : 'DoctorController'
+											})
 
-			.when('/patientEncounterDetails/:refNumber', {
-				templateUrl : 'module/doctor/views/patientEncounterDetails.jsp',
-				controller : 'PatientDetailsController',
-				refNumber : 'refNumber'
-			})
-			
-				.when('/labRequestsAndResults', {
-				templateUrl : 'module/doctor/views/LabTests.jsp',
-				controller : 'DoctorLabController',
-//				encounter : 'encounter'
-			})
-			
-			.when('/prescription', {
-				templateUrl : 'module/doctor/views/Prescription.jsp',
-				controller : 'DoctorLabController',
-			})
+									.when(
+											'/patientEncounterDetails/:refNumber',
+											{
+												templateUrl : 'module/doctor/views/patientEncounterDetails.jsp',
+												controller : 'PatientDetailsController',
+												refNumber : 'refNumber'
+											})
 
-			// route for the contact page
-			.when('/nurse', {
-				templateUrl : 'module/nurse/views/NurseHome.jsp',
-				controller : 'NurseController'
-			})
+									.when(
+											'/labRequestsAndResults',
+											{
+												templateUrl : 'module/doctor/views/LabTests.jsp',
+												controller : 'DoctorLabController',
+											// encounter : 'encounter'
+											})
 
-			.when('/createEncounter', {
-				templateUrl : 'module/nurse/views/createPatientEncounter.jsp',
-				controller : 'EncounterController'
-			})
-			
-			.when('/lab', {
-				templateUrl : 'module/lab/views/LabHome.jsp',
-				controller : 'LabController'
-			})
+									.when(
+											'/prescription',
+											{
+												templateUrl : 'module/doctor/views/Prescription.jsp',
+												controller : 'PrescriptionController',
+											})
 
-			.otherwise({
-				redirectTo : '/login'
-			});
-		}])
+									// route for the contact page
+									.when(
+											'/nurse',
+											{
+												templateUrl : 'module/nurse/views/NurseHome.jsp',
+												controller : 'NurseController'
+											})
+
+									.when(
+											'/createEncounter',
+											{
+												templateUrl : 'module/nurse/views/createPatientEncounter.jsp',
+												controller : 'EncounterController'
+											})
+
+									.when(
+											'/lab',
+											{
+												templateUrl : 'module/lab/views/LabHome.jsp',
+												controller : 'LabController'
+											})
+
+									.otherwise({
+										redirectTo : '/login'
+									});
+						} ])
 
 		.run(
 				[

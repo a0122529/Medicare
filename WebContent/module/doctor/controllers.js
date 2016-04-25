@@ -97,19 +97,34 @@ app.controller('DoctorLabController', [
 				DoctorLabService.CreateTestReq(workRequest, function(data,
 						header) {
 					$scope.workRequestList = data;
-
 				})
 			};
+		} ]);
 
-			DoctorLabService.PatientWorkReq("PA-1", function(data, header) {
-				$scope.workRequestList = data;
-				// alert(JSON.stringify($scope.workRequestList));
-			});
-
+app.controller('PrescriptionController', [ '$scope', '$rootScope', '$filter',
+		'PatientPrescription',
+		function($scope, $rootScope, $filter, PatientPrescription) {
 			$scope.allDrugs = function() {
 				$scope.dataLoading = true;
-				PatientPrescription.AllDrugs(function(data, header) {
-					$scope.doctorList = data;
+				PatientPrescription.AllDrugs(function(data) {
+					$rootScope.drugList = data;
+
 				});
 			};
+			// $scope.tags = [
+			// { text: 'Tag1' },
+			// { text: 'Tag2' },
+			// { text: 'Tag3' }
+			// ];
+
+			$scope.addDrug = function(drugName) {
+				// filtering out the object by drugName
+				var drug = $filter("filter")($rootScope.drugList, {name:$scope.drugName});
+//				$scope.wr.employee = newTemp[0];
+				$scope.dataLoading = true;
+				PatientPrescription.AddDrugs(drug[0], function(data) {
+					$scope.drugList = data;
+				});
+			}
+
 		} ]);

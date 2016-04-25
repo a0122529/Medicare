@@ -36,6 +36,4 @@ public class Allergies {
 	public void setName(String name) {
 		this.name = name;
 	}
-
-	
 }

@@ -2,18 +2,25 @@ package com.neu.model;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
 @Entity
 @Table(name = "encounter")
@@ -43,6 +50,13 @@ public class Encounter {
 	private String encStatus;
 
 	private String attDoctor;
+
+	@ManyToMany(cascade = CascadeType.ALL)
+	@LazyCollection(LazyCollectionOption.FALSE)
+	@JoinTable(name = "encounter_drugs", joinColumns = {
+			@JoinColumn(name = "encounterID", nullable = false) }, inverseJoinColumns = {
+					@JoinColumn(name = "drugId", nullable = false) })
+	private List<Drugs> drugs;
 
 	@OneToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "vitalId")
@@ -138,6 +152,30 @@ public class Encounter {
 
 	public void setPatient(Patient patient) {
 		this.patient = patient;
+	}
+
+	public String getEncStatus() {
+		return encStatus;
+	}
+
+	public void setEncStatus(String encStatus) {
+		this.encStatus = encStatus;
+	}
+
+	// public Set<Drugs> getDrugs() {
+	// return drugs;
+	// }
+	//
+	// public void setDrugs(Set<Drugs> drugs) {
+	// this.drugs = drugs;
+	// }
+
+	public List<Drugs> getDrugs() {
+		return drugs;
+	}
+
+	public void setDrugs(List<Drugs> drugs) {
+		this.drugs = drugs;
 	}
 
 }

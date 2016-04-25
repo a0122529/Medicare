@@ -1,3 +1,4 @@
+
 <div class="container">
 	<div class="row">
 		<div class="col-lg-12">
@@ -55,20 +56,18 @@
 			<div class="col-lg-12">
 				<hr>
 				<h3>Add Prescription</h3>
+
 				<div class="col-lg-4">
-					Test Name: <Select class="form-control" id="test"
-						multiple="multiple" ng-model="workRequest.testName" name="test">
-						<option>Drug1</option>
-						<option>Drug2</option>
-						<option>Drug3</option>
-						<option>Drug4</option>
+					Drug Name <Select class="form-control" id="drug"
+						ng-model="drugName" name="drug">
+						<option ng-repeat="drugs in drugList">{{drugs.drugName}}</option>
 					</Select>
 				</div>
-				<div class="col-lg-4">
-					Added Drug
-					<textarea type="text" class="form-control" id="note"
-						ng-model="workRequest.testInstructions"
-						style="width: 520px; height: 80px;"></textarea>
+				<div class="col-lg-4" ng-init="allDrugs()">
+					Added Drug: <Select class="form-control" id="encDrug"
+						ng-model="encDrug" name="encDrug">
+						<option ng-repeat="encDrug in encDrugList">{{encDrug.drugName}}</option>
+					</Select>
 				</div>
 				<!-- 	<div class="col-lg-4">
 					Lab Assistant: <Select class="form-control" id="test" name="test"
@@ -82,8 +81,8 @@
 				<hr>
 				<div class="col-lg-3">
 					<input type="submit" class="btn btn-lg btn-primary btn-block"
-						name="addInfo" id="addInfo" value="Add Drug"
-						ng-click="createTestReq()" />
+						name="adddrug" id="adddrug" value="Add Drug"
+						ng-click="addDrug(drugName)" />
 				</div>
 			</div>
 		</div>
