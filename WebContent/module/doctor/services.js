@@ -39,7 +39,6 @@ angular.module('Doctor')
 					service.UPDATEENCOUNTER = function(diagnosis, callback) {
 						var encounter = $rootScope.encounter;
 						encounter.diagnosis = diagnosis;
-						encounter.encStatus  = closed;
 //						alert(JSON.stringify(encounter));
 						$http.put(
 								'http://localhost:8080/MedicalFinalProject/rest/doctor/updateDiagnosis'
@@ -50,6 +49,18 @@ angular.module('Doctor')
 								});
 
 					}
+					
+					service.EmailSummary = function(encounter, callback) {
+						$http.post(
+								'http://localhost:8080/MedicalFinalProject/rest/doctor/emailSummary'
+										,encounter).success(
+								function(data, status) {
+									callback(data);
+
+								});
+
+					}
+					
 					return service;
 				} ])
 
@@ -100,5 +111,31 @@ angular.module('Doctor')
 								callback(data);
 							});
 			 		}
+			 
+			 service. UpdateReq =  function(encounter,  callback) {
+				 $http.post(
+							'http://localhost:8080/MedicalFinalProject/rest/doctor/updateReq'
+									,encounter).success(
+							function(data, status) {
+								callback(data);
+							});
+			 		}
+			
 			 	return service;
-		 	} ]);
+		 	} ])
+		 	
+.factory('SpecificService',
+	    ['Base64','$http', '$cookieStore', '$rootScope', '$timeout',
+	    function (Base64, $http, $cookieStore, $rootScope, $timeout) {
+	    		var service = {};
+	    		
+//        service.SearchPatient = function(refNumber, callback){
+////        	alert(refNumber);
+//        	$http.get('http://localhost:8080/MedicalFinalProject/rest/doctor/searchPatient/' + refNumber)
+//            .success(function (data, status, headers, config) {
+//                callback(data,headers);
+//                
+//            });
+//        };
+        return service;
+    }]);

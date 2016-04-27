@@ -35,7 +35,7 @@ public class WorkRequest {
 
 	private String additionalInfo;
 
-	private long date;
+	private String date;
 
 	private String status;
 
@@ -85,14 +85,6 @@ public class WorkRequest {
 		this.testName = testName;
 	}
 
-	public long getDate() {
-		return date;
-	}
-
-	public void setDate(long date) {
-		this.date = date;
-	}
-
 	public String getStatus() {
 		return status;
 	}
@@ -131,6 +123,14 @@ public class WorkRequest {
 
 	public void setTestInstructions(String testInstructions) {
 		this.testInstructions = testInstructions;
+	}
+
+	public String getDate() {
+		return date;
+	}
+
+	public void setDate(String date) {
+		this.date = date;
 	}
 
 }

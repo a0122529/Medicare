@@ -30,7 +30,7 @@
 			</div>
 			<div class="col-lg-3">
 				<ul class="nav nav-sidebar nav-pills nav-stacked">
-					<li class="active"><a href="#">Create Patient Info</a></li>
+					<li class="active"><a href="#/nurse">Create Patient Info</a></li>
 					<li><a ng-href="#/createEncounter">Create Encounter</a></li>
 				</ul>
 				<br> <br> <br> <br> <br> <br> <br>

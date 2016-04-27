@@ -21,7 +21,6 @@
 				<li><a href="#/doctor">Home</a></li>
 				<li><a href="#">Patient Encounter</a></li>
 				<li class="active"><a href="#/prescription">Prescription </a></li>
-				<li><a href="#">Assessment</a></li>
 			</ul>
 		</div>
 
@@ -46,11 +45,9 @@
 							<td>{{encounter.encounterId}}</td>
 							<td>{{encounter.patient.name}}</td>
 							<td>{{encounter.diagnosis}}</td>
-							<td ng-repeat="drug in encounter.drugs">{{drug.drugName}}</td>
-
+							<td ng-repeat="d in encounter.drugs">{{d.drugName}}</td>
 						</tr>
 					</tbody>
-
 				</table>
 			</div>
 
@@ -58,8 +55,8 @@
 				<hr>
 				<h3>Add Prescription</h3>
 				<div ng-show="errorDrugs.length > 0"  ng-repeat="fail in errorDrugs">
-					<h4>Not able to add the drug to patient order because of allergy due to drug</h4>
-					<h5>{{fail.dName}}</h5>
+					<h4>Not able to add the following drug to patient order because of allergy</h4>
+					<h5 style="color: red;">{{fail.dName}}</h5>
 					<h4> Allergy Name </h4>
 					<h5 ng-repeat="comp in fail.failedComponents" style="color: blue;">{{comp}}</h5>
 				</div>

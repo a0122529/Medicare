@@ -59,24 +59,26 @@ public class DrugAndAllergyCheckImpl extends DAO {
 		try {
 			Transaction tx = session.beginTransaction();
 			Query query = session.createQuery("from Encounter where encounterId =:encounterId");
-		
+
 			query.setInteger("encounterId", encounter.getEncounterId());
 			Encounter enc = (Encounter) query.uniqueResult();
-			// enc.setDrugs(encounter.getDrugs());
+
 			if (dfList.isEmpty()) {
+				enc.setDrugs(encounter.getDrugs());
 				session.merge(enc);
 				tx.commit();
 			} else {
 				for (Drugs drug : encounter.getDrugs()) {
 					for (DrugFailure df : dfList) {
 						if (!drug.getDrugName().equalsIgnoreCase(df.getdName())) {
+							enc.getDrugs().add(drug);
 						}
 					}
 				}
 				session.merge(enc);
 				tx.commit();
 			}
-			
+
 		} catch (Exception e) {
 			// TODO: handle exception
 		} finally {
@@ -85,19 +87,19 @@ public class DrugAndAllergyCheckImpl extends DAO {
 		return dfList;
 	}
 
-	// public void drugAllergyCheck() {
-	// try {
-	// Transaction tx = getSession().beginTransaction();
-	// Query q = getSession().createQuery("from Encounter where encounterId
-	// =:encounterId");
-	// q.setInteger("encounterID", 1);
-	// Encounter enc = (Encounter) q.uniqueResult();
-	//
-	// } catch (Exception e) {
-	// // TODO: handle exception
-	// }
-	// finally {
-	// getSession().close();
-	// }
-	// }
+	public Encounter updateReqEncounter(Encounter encounter) {
+		Encounter enc = new Encounter();
+		try {
+			System.out.println(encounter.getEncounterId());
+			Transaction tx = getSession().beginTransaction();
+			Query q = getSession().createQuery("from Encounter where encounterId =:encounterId");
+			q.setInteger("encounterId", encounter.getEncounterId());
+			enc = (Encounter) q.uniqueResult();
+		} catch (Exception e) {
+			// TODO: handle exception
+		} finally {
+			getSession().close();
+		}
+		return enc;
+	}
 }

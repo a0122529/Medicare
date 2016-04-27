@@ -1,19 +1,3 @@
-<%-- <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-<link rel="stylesheet"
-	href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
-<script
-	src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
-</head>
-<body> --%>
-
 <div class="container" ng-init="details()">
 	<div class="row">
 		<div class="col-lg-12">
@@ -34,11 +18,9 @@
 			<br>
 			<ul class="nav nav-sidebar nav-pills nav-stacked">
 				<li><a href="#/doctor">Home</a></li>
-				<li class="active"><a href="#">Patient Encounter</a></li>
-				<!-- <li><a href="#/labRequestsAndResults">Lab R&R</a></li> -->
-				<li><a href="#">Assessment</a></li>
+				<li class="active"><a href="javascript:void(0)">Patient Encounter</a></li>
 			</ul>
-			<br> <br>
+			<br>
 			<div class="panel panel-default">
 				<div class="panel-heading">Patient Info</div>
 				<div class="panel-body">
@@ -75,7 +57,7 @@
 			<div>
 				<h4>Update Diagnosis - Enc Id {{encounter.encounterId}}</h4>
 				<input type="text" class="form-control" id="diag" id="diagnosis"
-					ng-model="diagnosis" style="width: 258px; height: 65px;"
+					ng-model="diagnosis" style="width: 258px; height: 125px;"
 					value="{{encounter.diagnosis}}" /> <br> <input type="button"
 					class="btn btn-primary" name="addVital" id="addvital"
 					value="Update Diagnosis" ng-click="updateEnc()">
@@ -196,59 +178,24 @@
 						</tbody>
 					</table>
 				</div>
-
 			</div>
-			<!-- <div class="col-sm-9">
-				<div class="panel panel-default">
-					<div class="panel-heading">
-						<b>VITAL SIGN - ENCOUNTER ID {{encounter.encounterId}}</b>
-					</div>
-					<br>
-					<div class="panel-body">
-						<table class="table table-bordered table-striped" id="vitalTable">
-							<thead>
-								<tr>
-									<th>Weight</th>
-									<th>Resp Rate</th>
-									<th>Glucose Level</th>
-									<th>BP</th>
-									<th>BMI</th>
-									<th>Pulse</th>
-									<th>Height</th>
-									<th>Skin Condition</th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr>
-									<td>{{vitalSign.weight}}</td>
-									<td>{{vitalSign.respRate}}</td>
-									<td>{{vitalSign.glucoseLevel}}</td>
-									<td>{{vitalSign.bp}}</td>
-									<td>{{vitalSign.bmi}}</td>
-									<td>{{vitalSign.pulse}}</td>
-									<td>{{vitalSign.height}}</td>
-									<td>{{vitalSign.skinCondition}}</td>
-								</tr>
-							</tbody>
-						</table>
-					</div>
-				</div>
-			</div> -->
 			<div class="col-sm-9">
-				<div class="col-sm-8">
+				<div class="col-sm-4">
 					<a ng-href="#/labRequestsAndResults"><input type="button"
 						class="btn btn-primary" name="addVital" id="addvital"
 						value="Lab Test Request"></a>
 				</div>
 				<div class="col-sm-4">
+					<a ng-href="#"><input type="button" ng-click="emailSummary(encounter)"
+						class="btn btn-primary" name="sendRec" id="sendRec"
+						value="Email Summary"></a>
+				</div>
+				<div class="col-sm-4">
 					<a ng-href="#/prescription"><input type="button"
 						class="btn btn-primary" name="addVital" id="addvital"
-						value="Prescribe Prescription"></a>
+						value="Prescription"></a>
 				</div>
 			</div>
 		</div>
 	</div>
 </div>
-<!-- 	<!-- <script src="js/viewPatients.js"></script> -->
-<!-- </body>
-</html> -->

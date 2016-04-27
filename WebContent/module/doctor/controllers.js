@@ -22,7 +22,6 @@ app.controller('PatientDetailsController', [
 				$scope.refNumber = $routeParams.refNumber;
 				$rootScope.refNumber = $routeParams.refNumber;
 				PateintDetailsService.Details($scope.refNumber, function(data) {
-					// alert(JSON.stringify(data));
 					$scope.encounterList = data;
 				});
 			}
@@ -33,6 +32,14 @@ app.controller('PatientDetailsController', [
 				$rootScope.allergies = encounters.allergy.name.split(",");
 				$rootScope.symptoms = encounters.symptom.name.split(",");
 				$rootScope.medications = encounters.medication.name.split(",");
+			}
+
+			$scope.emailSummary = function(encounter) {
+				$scope.dataLoading = true;
+				EncounterDetailsService.EmailSummary(encounter, function(data,
+						header) {
+
+				})
 			}
 
 			$scope.updateEnc = function() {
@@ -46,31 +53,6 @@ app.controller('PatientDetailsController', [
 			}
 		} ])
 
-// app.controller('EncounterDetailController', [
-// '$scope',
-// '$rootScope',
-// 'EncounterDetailsService',
-// function($scope, $rootScope, EncounterDetailsService) {
-// $scope.go = function(encounters) {
-// var vitalSign = {};
-// $rootScope.encounter = encounters;
-// $rootScope.vitalSign = encounters.vitalSign;
-// $rootScope.allergies = encounters.allergy.name.split(",");
-// $rootScope.symptoms = encounters.symptom.name.split(",");
-// $rootScope.medications = encounters.medication.name.split(",");
-// }
-//
-// $scope.updateEnc = function() {
-// var diagnosis = $scope.diagnosis;
-// // alert(diagnosis);
-// $scope.dataLoading = true;
-// EncounterDetailsService.UPDATEENCOUNTER(diagnosis, function(
-// data, header) {
-//
-// })
-// }
-// } ])
-
 app.controller('DoctorLabController', [
 		'$scope',
 		'$rootScope',
@@ -79,15 +61,15 @@ app.controller('DoctorLabController', [
 		'PatientPrescription',
 		function($scope, $rootScope, $routeParams, DoctorLabService,
 				PatientPrescription) {
-			
+
 			$scope.patientWorkReq = function() {
 				$scope.dataLoading = true;
-				DoctorLabService.PatientWorkReq($rootScope.encounter, function(data,
-						header) {
+				DoctorLabService.PatientWorkReq($rootScope.encounter, function(
+						data, header) {
 					$scope.workRequestList = data;
 				})
 			};
-					
+
 			$scope.createTestReq = function() {
 				var docName = $rootScope.name;
 				var workRequest = $scope.workRequest;
@@ -118,6 +100,27 @@ app.controller('PrescriptionController', [ '$scope', '$rootScope', '$filter',
 				PatientPrescription.AddDrug(encounter, function(data) {
 					$scope.errorDrugs = data
 				});
+
+				PatientPrescription.UpdateReq(encounter, function(data) {
+					$scope.encounter = data
+				})
+
 			}
 
+		} ])
+app.controller('SpecificPatientController', [
+		'$scope',
+		'$rootScope', 'SpecificService',
+		function($scope, $rootScope, $SpecificService) {
+//
+//			$scope.addEncounter = function() {
+//				alert(JSON.stringify($scope.date));
+//				$scope.dataLoading = true;
+//				EncounterService.AddEncounter($scope.encounter,
+//						$scope.vitalSign, $scope.allergies, $scope.symptoms,
+//						$scope.medications, $scope.date,
+//						function(data, header) {
+//
+//						})
+//			}
 		} ]);

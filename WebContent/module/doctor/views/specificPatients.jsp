@@ -1,10 +1,11 @@
+
 <div class="container">
 	<div class="row">
 		<div class="col-lg-12">
 			<nav class="navbar navbar-default">
 				<div class="col-lg-10">
 					<div class="navbar-header">
-						<a class="navbar-brand" href="#">View Your Patients <b>
+						<a class="navbar-brand" href="#">View Patient with specific conditions<b>
 								Dr. {{name}}</b></a>
 					</div>
 				</div>
@@ -16,7 +17,7 @@
 			</nav>
 		</div>
 		<div class="col-lg-3">
-			<br> <br> <br> <br>
+			<br> <br>
 			<ul class="nav nav-sidebar nav-pills nav-stacked">
 				<li class="active"><a href="#/doctor">Home</a></li>
 				<li class="active"><a href="#/specificPatients">Specific Patients</a></li>
@@ -24,7 +25,7 @@
 		</div>
 
 		<div class="col-lg-9">
-			<h1>Registered Patients</h1>
+			<h4>Select a Diagnosis</h4>
 			<table class="table table-bordered table-hover table-striped"
 				id="patients">
 				<thead>
@@ -34,11 +35,11 @@
 					</tr>
 				</thead>
 
-				<tbody ng-repeat="patient in patientList">
+				<tbody>
 					<tr>
-						<td><a
+						<!-- <td><a
 							ng-href="#/patientEncounterDetails/{{patient.refNumber}}/">{{patient.refNumber}}</a></td>
-						<td>{{patient.name}}</td>
+						<td>{{patient.name}}</td> -->
 					</tr>
 				</tbody>
 

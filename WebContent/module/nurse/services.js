@@ -58,10 +58,12 @@
 		    function (Base64, $http, $cookieStore, $rootScope, $timeout) {
 		    		var service = {};
 		    		
-       service.AddEncounter = function(encounter, vitalSign, allergies, symptoms, medications, callback){
+       service.AddEncounter = function(encounter, vitalSign, allergies, symptoms, medications, date, callback){
 //    	   alert("encounter is " + JSON.stringify(encounter));
     	   var patient= {};
+    	  var newDate =  date.toString().substr(0, 7);
     	   patient.refNumber = $rootScope.refNumber1;
+    	   encounter.date = newDate;
     	   encounter.vitalSign = vitalSign;
     	   encounter.allergy = allergies;
     	   encounter.symptom = symptoms;
@@ -75,3 +77,5 @@
         };
         return service;
 		    }]);
+		    
+

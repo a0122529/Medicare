@@ -30,12 +30,13 @@ public class Employee extends Person {
 	@OneToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "roleId")
 	private Role role;
-	
 
 	@Transient
 	private List<Patient> patientList;
-	
+
 	private String workplace;
+
+	private String emailId;
 
 	@Transient
 	@OneToMany(mappedBy = "employee", fetch = FetchType.EAGER)
@@ -57,8 +58,6 @@ public class Employee extends Person {
 		this.patientList = patientList;
 	}
 
-
-
 	public Role getRole() {
 		return role;
 	}
@@ -75,5 +74,12 @@ public class Employee extends Person {
 		this.workplace = workplace;
 	}
 
+	public String getEmailId() {
+		return emailId;
+	}
+
+	public void setEmailId(String emailId) {
+		this.emailId = emailId;
+	}
 
 }

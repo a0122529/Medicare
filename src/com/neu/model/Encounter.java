@@ -1,6 +1,7 @@
 package com.neu.model;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
@@ -62,7 +63,7 @@ public class Encounter {
 	@JoinColumn(name = "symId")
 	private Symptoms symptom;
 
-	private long timestamp;
+	private String date;
 
 	@OneToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "medId")
@@ -172,12 +173,13 @@ public class Encounter {
 		this.drugs = drugs;
 	}
 
-	public long getTimestamp() {
-		return timestamp;
+	public String getDate() {
+		return date;
 	}
 
-	public void setTimestamp(long timestamp) {
-		this.timestamp = timestamp;
+	public void setDate(String date) {
+		this.date = date;
 	}
+
 
 }

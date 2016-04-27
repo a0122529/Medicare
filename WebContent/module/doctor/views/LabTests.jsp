@@ -19,10 +19,9 @@
 			<br> <br> <br> <br>
 			<ul class="nav nav-sidebar nav-pills nav-stacked">
 				<li><a href="#/doctor">Home</a></li>
-				<li><a href="#">Patient Encounter</a></li>
+				<li><a ng-href="#/patientEncounterDetails/{{$routeParams.refNumber}}/">Patient Encounter</a></li>
 				<li class="active"><a href="#/labRequestsAndResults">Lab
 						R&R</a></li>
-				<li><a href="#">Assessment</a></li>
 			</ul>
 		</div>
 

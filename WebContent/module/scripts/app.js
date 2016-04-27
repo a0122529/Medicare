@@ -8,7 +8,6 @@ angular.module('About', []);
 angular.module('Patient', []);
 angular.module('Doctor', []);
 angular.module('Lab', []);
-// angular.module('commonApp', []);
 
 angular
 		.module(
@@ -42,6 +41,13 @@ angular
 											{
 												templateUrl : 'module/doctor/views/DoctorPanel.jsp',
 												controller : 'DoctorController'
+											})
+
+									.when(
+											'/specificPatients',
+											{
+												templateUrl : 'module/doctor/views/specificPatients.jsp',
+												controller : 'SpecificPatientController'
 											})
 
 									.when(

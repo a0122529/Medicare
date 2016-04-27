@@ -19,6 +19,7 @@ import org.springframework.stereotype.Controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.neu.common.PhonesAndMails;
 import com.neu.dao.DrugAndAllergyCheckDAO;
 import com.neu.dao.impl.DoctorDAOImpl;
 import com.neu.dao.impl.DrugAndAllergyCheckImpl;
@@ -100,11 +101,19 @@ public class DoctorController {
 		return drugAndAllergyCheckImpl.drugAllergyCheck(encounter);
 	}
 
-	// @GET
-	// @RolesAllowed("doctor")
-	// @Path("/drug-DrugCheck")
-	// public boolean drugdrugCheck(Drugs drug1, Drugs drug2) {
-	//// return drugAndAllergyCheckImpl.drugAllergyCheck();
-	// return false;
-	// }
+	@POST
+	@RolesAllowed("doctor")
+	@Path("/updateReq")
+	public Encounter updateReq(Encounter encounter) {
+		return drugAndAllergyCheckImpl.updateReqEncounter(encounter);
+	}
+
+	@POST
+	@RolesAllowed("doctor")
+	@Path("emailSummary")
+	public void sendSummaryMail(Encounter encounter) {
+		PhonesAndMails pm = new PhonesAndMails();
+		pm.emailSummary(encounter);
+	}
+
 }

@@ -74,7 +74,7 @@ public class NurseController {
 		System.out.println("reached here man");
 		Patient foundPatient = nurseDAOImpl.sendEmailToPatient(patient);
 		PhonesAndMails pnm = new PhonesAndMails();
-		pnm.sendMailDaily(foundPatient);
+		pnm.sendMailOnRequest(foundPatient);
 	}
 
 }

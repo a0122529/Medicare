@@ -40,6 +40,8 @@ public class Patient extends Person {
 
 	private String phone;
 
+	private String emailId;
+
 	@Transient
 	@OneToMany(mappedBy = "patient", fetch = FetchType.EAGER)
 	private List<Encounter> encounterList = new ArrayList<>();
@@ -98,6 +100,14 @@ public class Patient extends Person {
 
 	public void setAddress(String address) {
 		this.address = address;
+	}
+
+	public String getEmailId() {
+		return emailId;
+	}
+
+	public void setEmailId(String emailId) {
+		this.emailId = emailId;
 	}
 
 }

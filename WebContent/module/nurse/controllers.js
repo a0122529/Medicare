@@ -7,7 +7,7 @@ app.controller('NurseController', [
 		'$rootScope',
 		'ContactService',
 		function($scope, $rootScope, ContactService) {
-			
+
 			$scope.sendToPatientEHR = function(refNumber) {
 				var patient = {};
 				patient.refNumber = refNumber;
@@ -28,14 +28,13 @@ app.controller('NurseController', [
 			};
 
 			$scope.allDoctors = function() {
-//				alert("reached here");
+				// alert("reached here");
 				$scope.dataLoading = true;
 				ContactService.AllDoctors(function(data, header) {
 					$scope.doctorList = data;
 				});
 			};
 		} ])
-		
 
 app.controller('PatientController', [
 		'$scope',
@@ -59,13 +58,16 @@ app.controller('EncounterController', [
 		'$rootScope',
 		'EncounterService',
 		function($scope, $rootScope, EncounterService) {
-
+							
 			$scope.addEncounter = function() {
+				alert(JSON.stringify($scope.date));
 				$scope.dataLoading = true;
 				EncounterService.AddEncounter($scope.encounter,
 						$scope.vitalSign, $scope.allergies, $scope.symptoms,
-						$scope.medications, function(data, header) {
+						$scope.medications, $scope.date, function(data, header) {
 
 						})
 			}
 		} ]);
+		
+		

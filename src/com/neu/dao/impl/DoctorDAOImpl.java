@@ -71,16 +71,6 @@ public class DoctorDAOImpl extends DAO implements DoctorDAO {
 		Query encountersListQuery = session.createQuery("from Encounter where patientId=:patientId");
 		encountersListQuery.setString("patientId", String.valueOf(patient.getPersonId()));
 		ArrayList<Encounter> encList = (ArrayList<Encounter>) encountersListQuery.list();
-		// Hibernate.initialize(encList.get(0).getDrugs());
-		// Hibernate.initialize(encList.get(1).getDrugs());
-		// Hibernate.initialize(encList.get(0).getDrugs().get(0).getEncounters());
-		// Hibernate.initialize(encList.get(1).getDrugs().get(1).getEncounters());
-		// Query symptomsQuery = session.createQuery("from Symptoms where
-		// encounterId =:encounterId");
-		// ArrayList<Symptoms> symList = (ArrayList<Symptoms>)
-		// symptomsQuery.list();
-
-		// System.out.println(patient.getEncounter().getChiefComplaint());
 		tx.commit();
 		session.close();
 		return encList;
@@ -92,8 +82,10 @@ public class DoctorDAOImpl extends DAO implements DoctorDAO {
 		Session session = getSession();
 		try {
 			Transaction tx = session.beginTransaction();
+			encounter.setEncStatus("Closed");
 			session.update(encounter);
 			tx.commit();
+			
 		} catch (Exception e) {
 			System.out.println(e);
 		} finally {
@@ -142,5 +134,6 @@ public class DoctorDAOImpl extends DAO implements DoctorDAO {
 		}
 		return wr;
 	}
+	
 
 }

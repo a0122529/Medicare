@@ -36,8 +36,8 @@
 				<div class="col-lg-3">
 					<br> <br> <br> <br>
 					<ul class="nav nav-sidebar nav-pills nav-stacked">
-						<li><a href="#/nurse.jsp">Create Patient Info</a></li>
-						<li class="active"><a ng-href="#">Create Encounter</a></li>
+						<li><a href="#/nurse">Create Patient Info</a></li>
+						<li class="active"><a href="#/createEncounter">Create Encounter</a></li>
 					</ul>
 				</div>
 
@@ -85,15 +85,11 @@
 											style="width: 180px; height: 25px;" />
 									</div>
 								</div>
-								<!-- 
-									 Date: <input
-										type="text" class="span7" id="address1"
-										style="width: 80px; height: 25px;" /> -->
+
 							</div>
 						</div>
 					</div>
-					<!-- 	<input type="button" class="span7" name="addVital" id="addvital"
-						value="Add Vital Sign"> -->
+
 					<div class="col-lg-12">
 						<div class="panel panel-default">
 							<div class="panel-heading">Vital Signs</div>
@@ -101,7 +97,7 @@
 								<div class="controls controls-row row-fluid">
 									<div class="col-lg-12">
 										<div class="col-lg-4">
-											Date: <input type="text" class="form-control" id="date"
+											Date: <input type="date" class="form-control" id="date" ng-model="date"
 												name="date" style="width: 180px; height: 25px;" />
 										</div>
 										<div class="col-lg-4">
@@ -221,9 +217,9 @@
 
 	<!-- lib -->
 	<!-- <script src="js/addEncounter.js"></script> -->
-	<script src="js/bootstrap-datepicker.js"></script>
+	<!-- <script src="js/bootstrap-datepicker.js"></script> -->
 
-	<script type="text/javascript">
+	<!-- <script type="text/javascript">
 		// When the document is ready
 		$(document).ready(function() {
 
@@ -231,6 +227,6 @@
 				format : "yyyy-mm-dd"
 			});
 		});
-	</script>
+	</script> -->
 </body>
 </html>
