@@ -5,7 +5,9 @@ import java.util.Properties;
 import javax.mail.*;
 import javax.mail.internet.*;
 
+import com.neu.dao.impl.DoctorDAOImpl;
 import com.neu.dao.impl.PatientDAOImpl;
+import com.neu.model.Diagnosis;
 import com.neu.model.Encounter;
 import com.neu.model.Patient;
 import com.neu.model.WorkRequest;
@@ -62,6 +64,10 @@ public class PhonesAndMails {
 	}
 
 	public String emailSummary(Encounter enc) {
+
+		DoctorDAOImpl dDAO = new DoctorDAOImpl();
+		Diagnosis diagnosis = dDAO.findDiabObj(enc.getDiagnosis());
+
 		Patient patient = enc.getPatient();
 		Properties properties = System.getProperties();
 		properties.setProperty("mail.smtp.host", "smtp.gmail.com");
@@ -91,8 +97,7 @@ public class PhonesAndMails {
 					+ enc.getVitalSign().getBp() + "<br>" + "<strong>BMI</strong> = " + enc.getVitalSign().getBmi()
 					+ "<br>" + "<strong>Pulse</strong> = " + enc.getVitalSign().getPulse() + "<br>"
 					+ "<strong>Skin Condition</strong> = " + enc.getVitalSign().getSkinCondition() + "<br>"
-
-					, "text/html");
+					+ "<strong>Disease Knowledge</strong> = " + diagnosis.getEdulink() + "<br>", "text/html");
 			Transport transport = session.getTransport("smtp");
 			transport.connect(null, username, password);
 			message.saveChanges();

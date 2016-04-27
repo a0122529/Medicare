@@ -165,4 +165,18 @@ public class DoctorDAOImpl extends DAO implements DoctorDAO {
 		return patEncList;
 	}
 
+	public Diagnosis findDiabObj(String diag) {
+		Diagnosis diagnosis = new Diagnosis();
+		try {
+			Query query = getSession().createQuery("from Diagnosis where diagnosisName =:diagnosisName");
+			query.setString("diagnosisName", diag);
+			diagnosis = (Diagnosis) query.uniqueResult();
+		} catch (Exception e) {
+			// TODO: handle exception
+		} finally {
+			getSession().close();
+		}
+		return diagnosis;
+	}
+
 }

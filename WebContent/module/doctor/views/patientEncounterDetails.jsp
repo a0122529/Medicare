@@ -194,7 +194,7 @@
 						value="Lab Test Request"></a>
 				</div>
 				<div class="col-sm-4">
-					<a ng-href="#"><input type="button"
+					<a ng-href="javascript:void(0)"><input type="button"
 						ng-click="emailSummary(encounter)" class="btn btn-primary"
 						name="sendRec" id="sendRec" value="Email Summary"></a>
 				</div>
