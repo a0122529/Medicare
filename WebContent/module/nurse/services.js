@@ -8,14 +8,17 @@
     		var service = {};
         
         	service.AddPatient = function (patient, callback) {
-//        		alert(patient.name);
-//        		alert(JSON.stringify(patient));
-//        		alert(JSON.stringify(person));
             $http.post('http://localhost:8080/MedicalFinalProject/rest/nurse/addPatient', patient)
                 .success(function (data, status, headers, config) {
                     callback(data,headers);
                 });
-
+        };
+        
+    	service.SendPhyRecord = function (patient, callback) {
+            $http.post('http://localhost:8080/MedicalFinalProject/rest/nurse/sendToPhysician', patient)
+                .success(function (data, status, headers, config) {
+                    callback(data,headers);
+                });
         };
         
     	service.SendToPatientEHR = function (patient, callback) {

@@ -15,6 +15,8 @@ public class Diagnosis {
 	private int diagId;
 
 	private String diagnosisName;
+	
+	private String edulink;
 
 	public Diagnosis() {
 
@@ -34,6 +36,14 @@ public class Diagnosis {
 
 	public void setDiagnosisName(String diagnosisName) {
 		this.diagnosisName = diagnosisName;
+	}
+
+	public String getEdulink() {
+		return edulink;
+	}
+
+	public void setEdulink(String edulink) {
+		this.edulink = edulink;
 	}
 
 }

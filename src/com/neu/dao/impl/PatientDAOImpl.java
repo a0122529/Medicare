@@ -42,6 +42,11 @@ public class PatientDAOImpl extends DAO implements PatientDAO {
 		Query query = session.createQuery("from Patient where refNumber=:refNumber");
 		query.setString("refNumber", patRefNum);
 		patient = (Patient) query.uniqueResult();
+		// Query encQ = session.createQuery("from Encounter where patientId
+		// =:patientId");
+		// encQ.setInteger("patientId", patient.getPersonId());
+		// ArrayList<Encounter> encLis = (ArrayList<Encounter>) encQ.list();
+		// patient.setEncounterList(encLis);
 		tx.commit();
 		session.close();
 		return patient;
@@ -91,7 +96,25 @@ public class PatientDAOImpl extends DAO implements PatientDAO {
 			tx.commit();
 		}
 		session.close();
+	}
 
+	public ArrayList<Encounter> sendEmailToPhysician(Patient patient) {
+		Session session = getSession();
+		Patient foundPatient = null;
+		ArrayList<Encounter> encList = new ArrayList<>();
+		try {
+
+			Query encQuery = session.createQuery("from Encounter where patientId =:patId order by encounterId DESC");
+			encQuery.setInteger("patId", patient.getPersonId());
+			encList = (ArrayList<Encounter>) encQuery.list();
+			patient.setEncounterList(encList);
+
+		} catch (Exception e) {
+			System.out.println(e);
+		} finally {
+			session.close();
+		}
+		return encList;
 	}
 
 }

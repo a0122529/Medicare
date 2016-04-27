@@ -1,9 +1,11 @@
 package com.neu.common;
 
+import java.util.ArrayList;
 import java.util.Properties;
 import javax.mail.*;
 import javax.mail.internet.*;
 
+import com.neu.dao.impl.PatientDAOImpl;
 import com.neu.model.Encounter;
 import com.neu.model.Patient;
 import com.neu.model.WorkRequest;
@@ -103,7 +105,27 @@ public class PhonesAndMails {
 	}
 
 	public String sendPhysicianPatientDetail(Patient patient) {
-		Encounter enc = patient.getEncounterList().get(0);
+		int count = 0;
+		ArrayList<Encounter> encList = new ArrayList<>();
+		PatientDAOImpl pDAO = new PatientDAOImpl();
+		encList = pDAO.sendEmailToPhysician(patient);
+		StringBuffer sb = new StringBuffer();
+		sb.append("Patient Vital Sign Details <br><br>");
+		for (Encounter enc : encList) {
+			if (count == 5) {
+				break;
+			} else {
+				sb.append("<strong>Respiratory Rate</strong> = " + enc.getVitalSign().getRespRate()
+						+ "<br> <strong>Weight</strong> = " + enc.getVitalSign().getWeight()
+						+ "<br> <strong>Height</strong> = " + enc.getVitalSign().getHeight()
+						+ "<br> <strong>Blood Pressure </strong> = " + enc.getVitalSign().getBp()
+						+ "<br> <strong>BMI</strong> = " + enc.getVitalSign().getBmi()
+						+ "<br> <strong>Pulse</strong> = " + enc.getVitalSign().getPulse()
+						+ "<br> <strong>Skin Condition</strong> = " + enc.getVitalSign().getSkinCondition() + "");
+				count++;
+			}
+		}
+		// Encounter enc = patient.getEncounterList().get(0);
 		Properties properties = System.getProperties();
 		properties.setProperty("mail.smtp.host", "smtp.gmail.com");
 		properties.setProperty("mail.smtp.socketFactory.class", SSL_FACTORY);
@@ -123,18 +145,9 @@ public class PhonesAndMails {
 			Message message = new MimeMessage(session);
 			message.setFrom(new InternetAddress(mailFrom));
 			message.addRecipient(Message.RecipientType.TO, new InternetAddress(patient.getPhyEmail()));
-			message.setSubject(
-					"Test results for patient " + patient.getRefNumber() + " for Checkup and Medical Reconcilliation.");
-			message.setContent("Patient Name = " + patient.getName() + "<br><br>"
-					+ "<strong>Vital Sign Information</strong>" + "<strong>Respiratory Rate</strong> = "
-					+ enc.getVitalSign().getRespRate() + "<br>" + "<strong>Weight</strong> = "
-					+ enc.getVitalSign().getWeight() + "<br>" + "<strong>Height</strong> = "
-					+ enc.getVitalSign().getHeight() + "<br>" + "<strong>Blood Pressure</strong> = "
-					+ enc.getVitalSign().getBp() + "<br>" + "<strong>BMI</strong> = " + enc.getVitalSign().getBmi()
-					+ "<br>" + "<strong>Pulse</strong> = " + enc.getVitalSign().getPulse() + "<br>"
-					+ "<strong>Skin Condition</strong> = " + enc.getVitalSign().getSkinCondition() + "<br>"
-
-					, "text/html");
+			message.setSubject("Test results for patient " + patient.getName() + ", Ref Number "
+					+ patient.getRefNumber() + " for Checkup and Medical Reconcilliation.");
+			message.setContent(sb.toString(), "text/html");
 			Transport transport = session.getTransport("smtp");
 			transport.connect(null, username, password);
 			message.saveChanges();

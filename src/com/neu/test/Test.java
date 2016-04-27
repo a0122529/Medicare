@@ -120,10 +120,15 @@ public class Test {
 		Diagnosis d5 = new Diagnosis();
 
 		d1.setDiagnosisName("Cancer");
+		d1.setEdulink("https://en.wikipedia.org/wiki/Cancer");
 		d2.setDiagnosisName("Asthma");
+		d2.setEdulink("https://en.wikipedia.org/wiki/Asthma");
 		d3.setDiagnosisName("Ulser");
+		d3.setEdulink("https://en.wikipedia.org/wiki/Ulcer");
 		d4.setDiagnosisName("Kidney Failure");
+		d4.setEdulink("https://en.wikipedia.org/wiki/Kidneyfailure");
 		d5.setDiagnosisName("Bronichitis");
+		d5.setEdulink("https://en.wikipedia.org/wiki/Bronchitis");
 		session.save(d1);
 		session.save(d2);
 		session.save(d3);

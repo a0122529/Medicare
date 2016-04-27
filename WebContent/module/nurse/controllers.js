@@ -32,15 +32,12 @@ app.controller('NurseController', [
 				$scope.emaiId = emailId;
 				$scope.dataLoading = true;
 				PatientService.SearchPatient(refNumber, function(data, header) {
-					$scope.foundPatient = data;
-					alert(JSON.stringify(data));
-				});
+					$rootScope.foundPatient = data;
+					$rootScope.foundPatient.phyEmail = emailId;
+					ContactService.SendPhyRecord($rootScope.foundPatient,
+							function(data, header) {
 
-				$scope.dataLoading = true;
-//				$scope.foundPatient.phyEmail = $scope.emaiId;
-				ContactService.SendPhyRecord($scope.found, function(data,
-						header) {
-
+							});
 				});
 			};
 
