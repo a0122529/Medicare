@@ -14,7 +14,7 @@
 </head>
 <body> --%>
 
-<div class="container">
+<div class="container" ng-init="details()">
 	<div class="row">
 		<div class="col-lg-12">
 			<nav class="navbar navbar-default">
@@ -72,7 +72,7 @@
 					</div>
 				</div>
 			</div>
-			<div ng-app="Doctor" ng-controller="EncounterDetailController">
+			<div>
 				<h4>Update Diagnosis - Enc Id {{encounter.encounterId}}</h4>
 				<input type="text" class="form-control" id="diag" id="diagnosis"
 					ng-model="diagnosis" style="width: 258px; height: 65px;"
@@ -81,8 +81,7 @@
 					value="Update Diagnosis" ng-click="updateEnc()">
 			</div>
 		</div>
-		<div class="col-lg-9" ng-app="Doctor"
-			ng-controller="EncounterDetailController">
+		<div class="col-lg-9">
 			<h3 style="margin-left: 12px;">Patient Encounter Details</h3>
 			<div class="col-lg-9">
 				<div class="panel panel-default">
@@ -98,6 +97,7 @@
 									<th>Chief Complaint</th>
 									<th>Diagnosis</th>
 									<th>Doctor</th>
+									<th>Status</th>
 								</tr>
 							</thead>
 							<tbody ng-repeat="encounters in encounterList"
@@ -107,6 +107,7 @@
 									<td>{{encounters.chiefComplaint}}</td>
 									<td>{{encounters.diagnosis}}</td>
 									<td>{{encounters.attDoctor}}</td>
+									<td>{{encounters.encStatus}}</td>
 								</tr>
 							</tbody>
 						</table>

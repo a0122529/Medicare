@@ -33,13 +33,26 @@
 					<li class="active"><a href="#">Create Patient Info</a></li>
 					<li><a ng-href="#/createEncounter">Create Encounter</a></li>
 				</ul>
+				<br> <br> <br> <br> <br> <br> <br>
+				<br> <br>
+				<hr>
+				<h4>
+					<b>Patient EHR Copy</b>
+				</h4>
+				Enter Patient Reference Number: <input type="text"
+					class="form-control" id="patId" name="refNumber" id="refNumber"
+					placeholder="Enter Ref. Num" ng-model="refNumber" /> <br> <input
+					type="submit" class="btn btn-lg btn-primary btn-block"
+					name="addInfo" id="addInfo" value="Send Email"
+					ng-click="sendToPatientEHR(refNumber)" style="margin-top: 17px;" />
+
 			</div>
 
 			<!-- <div class="col-lg-9"> -->
 			<h2>Patient Information</h2>
 			<div class="col-lg-9">
 				<div class="panel panel-default">
-					<div class="panel-heading" >Add Personal Info</div>
+					<div class="panel-heading">Add Personal Info</div>
 					<div class="panel-body">
 						<div class="controls controls-row row-fluid">
 							<!-- <form name="patientForm" ng-submit="update(patient)" role="form"> -->
@@ -112,13 +125,14 @@
 						<!-- </form>  -->
 					</div>
 				</div>
+				<input type="submit" class="btn btn-lg btn-primary btn-block"
+					name="addInfo" id="addInfo" value="Add Patient"
+					ng-click="addPatient(patient)" />
 			</div>
-			<input type="submit" class="btn btn-lg btn-primary btn-block"
-				name="addInfo" id="addInfo" value="Add Patient"
-				ng-click="addPatient(patient)" />
+
 		</div>
 	</div>
-	</div>
+	<!-- 	</div> -->
 
 	<!-- lib -->
 	<!-- 	<script src="js/createPatient.js"></script> -->

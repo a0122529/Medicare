@@ -19,10 +19,9 @@ angular.module('Doctor')
 								'http://localhost:8080/MedicalFinalProject/rest/doctor/searchPatient/'
 										+ refNumber).success(
 								function(data, status) {
+//									alert(JSON.stringify(data));
 									callback(data);
-
 								});
-
 					};
 					return service;
 				} ])
@@ -40,6 +39,7 @@ angular.module('Doctor')
 					service.UPDATEENCOUNTER = function(diagnosis, callback) {
 						var encounter = $rootScope.encounter;
 						encounter.diagnosis = diagnosis;
+						encounter.encStatus  = closed;
 //						alert(JSON.stringify(encounter));
 						$http.put(
 								'http://localhost:8080/MedicalFinalProject/rest/doctor/updateDiagnosis'
@@ -68,11 +68,10 @@ angular.module('Doctor')
 					});
 	 		}
 	 
-	 service.PatientWorkReq =  function(refNumber, callback) {
-//		 alert(refNumber);
-		 $http.get(
+	 service.PatientWorkReq =  function(encounter, callback) {
+		 $http.post(
 					'http://localhost:8080/MedicalFinalProject/rest/doctor/patientLabRequests'
-							,refNumber).success(
+							,encounter).success(
 					function(data, status) {
 						callback(data);
 					});
@@ -92,11 +91,11 @@ angular.module('Doctor')
 								callback(data);
 							});
 			 		}
-			 service.AddDrug =  function(drug,  callback) {
-				 alert(JSON.stringify)
-				 $http.get(
-							'http://localhost:8080/MedicalFinalProject/rest/doctor/patientLabRequests'
-									,drug).success(
+			 
+			 service.AddDrug =  function(encounter,  callback) {
+				 $http.post(
+							'http://localhost:8080/MedicalFinalProject/rest/doctor/drug-AllergyCheck'
+									,encounter).success(
 							function(data, status) {
 								callback(data);
 							});

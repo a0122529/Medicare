@@ -18,6 +18,15 @@
 
         };
         
+    	service.SendToPatientEHR = function (patient, callback) {
+
+        $http.post('http://localhost:8080/MedicalFinalProject/rest/nurse/sendToPatientEHR', patient)
+            .success(function (data, status, headers, config) {
+                callback(data,headers);
+            });
+
+    }
+        
         	service.AllDoctors = function(callback){
         		 $http.get('http://localhost:8080/MedicalFinalProject/rest/nurse/alldoctors')
         		 .success(function (data, status, header, config){

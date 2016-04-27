@@ -80,6 +80,7 @@ public class PatientDAOImpl extends DAO implements PatientDAO {
 		session.save(med);
 		session.save(sym);
 		session.save(vitalSign);
+		encounter.setEncStatus("Open");
 		encounter.setAllergy(allergy);
 		encounter.setSymptom(sym);
 		encounter.setMedication(med);

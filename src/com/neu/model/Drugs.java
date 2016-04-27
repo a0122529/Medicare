@@ -21,10 +21,6 @@ import org.hibernate.annotations.LazyCollectionOption;
 @Table(name = "drugs")
 public class Drugs {
 
-	public Drugs() {
-
-	}
-
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int drugId;
@@ -35,9 +31,11 @@ public class Drugs {
 	@CollectionTable(name = "drugComponents")
 	private List<String> drugComponents;
 
-	@ManyToMany(targetEntity=Encounter.class, mappedBy = "drugs")
-	@LazyCollection(LazyCollectionOption.FALSE)
-	private List<Encounter> encounters;
+	
+
+	public Drugs() {
+		drugComponents = new ArrayList<>();
+	}
 
 	public List<String> getDrugComponents() {
 		return drugComponents;
@@ -63,20 +61,6 @@ public class Drugs {
 		this.drugName = drugName;
 	}
 
-//	public Set<Encounter> getEncounters() {
-//		return encounters;
-//	}
-//
-//	public void setEncounters(Set<Encounter> encounters) {
-//		this.encounters = encounters;
-//	}
 
-	public List<Encounter> getEncounters() {
-		return encounters;
-	}
-
-	public void setEncounters(List<Encounter> encounters) {
-		this.encounters = encounters;
-	}
 
 }

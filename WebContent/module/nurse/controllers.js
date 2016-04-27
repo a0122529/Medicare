@@ -7,6 +7,16 @@ app.controller('NurseController', [
 		'$rootScope',
 		'ContactService',
 		function($scope, $rootScope, ContactService) {
+			
+			$scope.sendToPatientEHR = function(refNumber) {
+				var patient = {};
+				patient.refNumber = refNumber;
+				$scope.dataLoading = true;
+				ContactService.SendToPatientEHR(patient,
+						function(data, header) {
+
+						});
+			};
 
 			$scope.addPatient = function() {
 

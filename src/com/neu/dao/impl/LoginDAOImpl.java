@@ -6,6 +6,7 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.springframework.stereotype.Component;
 
+import com.neu.common.HashUtil;
 import com.neu.dao.DAO;
 import com.neu.dao.LoginDAO;
 import com.neu.model.Login;
@@ -24,7 +25,7 @@ public class LoginDAOImpl extends DAO implements LoginDAO {
 		Transaction tx = session.beginTransaction();
 		Query query = session.createQuery("from Login where username =:username and password =:password");
 		query.setString("username", login.getUsername());
-		query.setString("password", login.getPassword());
+		query.setString("password", HashUtil.generateHash(login.getPassword(), HashUtil.ALGO.MD5));
 		login = (Login) query.uniqueResult();
 		if (login.getRole().getRoleName().equalsIgnoreCase("doctor")) {
 			Query queryPatients = session.createQuery("from Patient");

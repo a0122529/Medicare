@@ -19,5 +19,5 @@ public interface DoctorDAO {
 
 	public abstract ArrayList<WorkRequest> createLabRequest(WorkRequest workRequest);
 
-	public abstract ArrayList<WorkRequest> getPatientLabRequest();
+	public abstract ArrayList<WorkRequest> getPatientLabRequest(Encounter encounter);
 }

@@ -2,6 +2,7 @@ package com.neu.dao.impl;
 
 import java.util.ArrayList;
 
+import org.hibernate.Hibernate;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -70,6 +71,10 @@ public class DoctorDAOImpl extends DAO implements DoctorDAO {
 		Query encountersListQuery = session.createQuery("from Encounter where patientId=:patientId");
 		encountersListQuery.setString("patientId", String.valueOf(patient.getPersonId()));
 		ArrayList<Encounter> encList = (ArrayList<Encounter>) encountersListQuery.list();
+		// Hibernate.initialize(encList.get(0).getDrugs());
+		// Hibernate.initialize(encList.get(1).getDrugs());
+		// Hibernate.initialize(encList.get(0).getDrugs().get(0).getEncounters());
+		// Hibernate.initialize(encList.get(1).getDrugs().get(1).getEncounters());
 		// Query symptomsQuery = session.createQuery("from Symptoms where
 		// encounterId =:encounterId");
 		// ArrayList<Symptoms> symList = (ArrayList<Symptoms>)
@@ -107,8 +112,8 @@ public class DoctorDAOImpl extends DAO implements DoctorDAO {
 			Transaction tx = session.beginTransaction();
 			session.save(workRequest);
 
-			Query query = session.createQuery("from WorkRequest where patientRefNum =:refNum");
-			query.setString("refNum", workRequest.getPatientRefNum());
+			Query query = session.createQuery("from WorkRequest where encounterId =:encounterId");
+			query.setInteger("encounterId", workRequest.getEncounter().getEncounterId());
 			wr = (ArrayList<WorkRequest>) query.list();
 			tx.commit();
 		} catch (Exception e) {
@@ -121,17 +126,14 @@ public class DoctorDAOImpl extends DAO implements DoctorDAO {
 	}
 
 	@Override
-	public ArrayList<WorkRequest> getPatientLabRequest() {
+	public ArrayList<WorkRequest> getPatientLabRequest(Encounter encounter) {
 		// TODO Auto-generated method stub
-		
 		ArrayList<WorkRequest> wr = new ArrayList<>();
 		Session session = getSession();
 		try {
-			Transaction tx = session.beginTransaction();
-			Query query = session.createQuery("from WorkRequest");
-//			query.setString("refNum", refNumber);
+			Query query = session.createQuery("from WorkRequest where encounterId =:encounterId");
+			query.setInteger("encounterId", encounter.getEncounterId());
 			wr = (ArrayList<WorkRequest>) query.list();
-			tx.commit();
 		} catch (Exception e) {
 			// TODO: handle exception
 			System.out.println(e);

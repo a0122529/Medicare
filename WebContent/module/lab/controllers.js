@@ -7,7 +7,7 @@ app.controller('LabController', [ '$scope', '$rootScope', '$routeParams',
 		function($scope, $rootScope, $routeParams, $filter, LabService) {
 
 			LabService.LabAssistantReq(function(data, header) {
-			
+//				alert(JSON.stringify(data));
 				$scope.workRequestList = data;
 				
 			});
@@ -23,6 +23,7 @@ app.controller('LabController', [ '$scope', '$rootScope', '$routeParams',
 			$scope.go = function(wr) {
 				$scope.wr = wr;				
 				var labAssistant;
+//				alert(JSON.stringify(wr));
 				$scope.labAssistant = wr.employee.name;
 				
 			};
@@ -37,7 +38,7 @@ app.controller('LabController', [ '$scope', '$rootScope', '$routeParams',
 //				alert(JSON.stringify($scope.wr));
 				LabService.UpdateWorkReq($scope.wr, function(data, header) {
 					
-//					$scope.workRequestList = data;
+					$scope.workRequestList = data;
 //					alert(JSON.stringify($scope.workRequestList));
 
 				})

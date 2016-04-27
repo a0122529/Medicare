@@ -35,7 +35,8 @@
 							<th>Encounter ID</th>
 							<th>Patient Name</th>
 							<th>Diagnosis</th>
-							<th>Prescribed Medicine</th>
+							<th ng-repeat="drug in encounter.drugs"
+								ng-show="encounter.drugs.length">Medicine</th>
 
 						</tr>
 					</thead>
@@ -45,7 +46,7 @@
 							<td>{{encounter.encounterId}}</td>
 							<td>{{encounter.patient.name}}</td>
 							<td>{{encounter.diagnosis}}</td>
-							<td></td>
+							<td ng-repeat="drug in encounter.drugs">{{drug.drugName}}</td>
 
 						</tr>
 					</tbody>
@@ -56,25 +57,20 @@
 			<div class="col-lg-12">
 				<hr>
 				<h3>Add Prescription</h3>
-
+				<div ng-show="errorDrugs.length > 0"  ng-repeat="fail in errorDrugs">
+					<h4>Not able to add the drug to patient order because of allergy due to drug</h4>
+					<h5>{{fail.dName}}</h5>
+					<h4> Allergy Name </h4>
+					<h5 ng-repeat="comp in fail.failedComponents" style="color: blue;">{{comp}}</h5>
+				</div>
 				<div class="col-lg-4">
-					Drug Name <Select class="form-control" id="drug"
-						ng-model="drugName" name="drug">
-						<option ng-repeat="drugs in drugList">{{drugs.drugName}}</option>
+					Drugs: <Select class="form-control" id="drug" multiple
+						ng-model="encounter.drugs" ng-init="allDrugs()"
+						ng-options="dl.drugName for dl in drugList" name="drug">
+
 					</Select>
 				</div>
-				<div class="col-lg-4" ng-init="allDrugs()">
-					Added Drug: <Select class="form-control" id="encDrug"
-						ng-model="encDrug" name="encDrug">
-						<option ng-repeat="encDrug in encDrugList">{{encDrug.drugName}}</option>
-					</Select>
-				</div>
-				<!-- 	<div class="col-lg-4">
-					Lab Assistant: <Select class="form-control" id="test" name="test"
-						ng-model="assistantName" style="width: 180px; height: 30px;">
-						<option>Name</option>
-					</Select>
-				</div> -->
+
 
 			</div>
 			<div class="col-lg-12">
@@ -82,7 +78,7 @@
 				<div class="col-lg-3">
 					<input type="submit" class="btn btn-lg btn-primary btn-block"
 						name="adddrug" id="adddrug" value="Add Drug"
-						ng-click="addDrug(drugName)" />
+						ng-click="addDrug(encounter)" />
 				</div>
 			</div>
 		</div>

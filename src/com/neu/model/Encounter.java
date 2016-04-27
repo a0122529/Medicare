@@ -34,19 +34,11 @@ public class Encounter {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int encounterId;
 
-	public List<WorkRequest> getLabTestList() {
-		return labTestList;
-	}
-
-	public void setLabTestList(List<WorkRequest> labTestList) {
-		this.labTestList = labTestList;
-	}
-
 	private String chiefComplaint;
 
 	private String diagnosis;
 
-	@Transient
+
 	private String encStatus;
 
 	private String attDoctor;
@@ -69,6 +61,8 @@ public class Encounter {
 	@OneToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "symId")
 	private Symptoms symptom;
+
+	private long timestamp;
 
 	@OneToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "medId")
@@ -162,13 +156,13 @@ public class Encounter {
 		this.encStatus = encStatus;
 	}
 
-	// public Set<Drugs> getDrugs() {
-	// return drugs;
-	// }
-	//
-	// public void setDrugs(Set<Drugs> drugs) {
-	// this.drugs = drugs;
-	// }
+	public List<WorkRequest> getLabTestList() {
+		return labTestList;
+	}
+
+	public void setLabTestList(List<WorkRequest> labTestList) {
+		this.labTestList = labTestList;
+	}
 
 	public List<Drugs> getDrugs() {
 		return drugs;
@@ -176,6 +170,14 @@ public class Encounter {
 
 	public void setDrugs(List<Drugs> drugs) {
 		this.drugs = drugs;
+	}
+
+	public long getTimestamp() {
+		return timestamp;
+	}
+
+	public void setTimestamp(long timestamp) {
+		this.timestamp = timestamp;
 	}
 
 }

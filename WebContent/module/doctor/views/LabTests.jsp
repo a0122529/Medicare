@@ -26,8 +26,8 @@
 			</ul>
 		</div>
 
-		<div class="col-lg-9">
-			<div class="col-lg-12">
+		<div class="col-lg-9" >
+			<div class="col-lg-12" ng-init="patientWorkReq()">
 				<h3>Lab Results</h3>
 				<table class="table table-bordered table-hover table-striped"
 					id="patients">
@@ -37,7 +37,9 @@
 							<th>Test Name</th>
 							<th>Date</th>
 							<th>Lab Assistant</th>
+							<th>Result</th>
 							<th>Status</th>
+							<th>Lab Instruction</th>
 						</tr>
 					</thead>
 
@@ -47,7 +49,9 @@
 							<td>{{workReq.testName}}</td>
 							<td>{{workReq.date}}</td>
 							<td>{{workReq.employee.name}}</td>
+							<td>{{workReq.testResult}}</td>
 							<td>{{workReq.status}}</td>
+							<td>{{workReq.additionalInfo}}</td>
 						</tr>
 					</tbody>
 
@@ -72,7 +76,7 @@
 					</Select>
 				</div>
 				<div class="col-lg-4">
-					Test Instructions:
+					Doctor Instructions:
 					<textarea type="text" class="form-control" id="note"
 						ng-model="workRequest.testInstructions"
 						style="width: 520px; height: 100px;"></textarea>

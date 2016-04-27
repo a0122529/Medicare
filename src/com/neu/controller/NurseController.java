@@ -14,12 +14,14 @@ import javax.ws.rs.core.MediaType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
+import com.neu.common.PhonesAndMails;
 import com.neu.dao.impl.DoctorDAOImpl;
 import com.neu.dao.impl.LabDAOImpl;
 import com.neu.dao.impl.LoginDAOImpl;
 import com.neu.dao.impl.NurseDAOImpl;
 import com.neu.dao.impl.PatientDAOImpl;
 import com.neu.model.Employee;
+import com.neu.model.Encounter;
 import com.neu.model.Patient;
 
 @Controller
@@ -30,15 +32,14 @@ public class NurseController {
 
 	@Autowired
 	private PatientDAOImpl patientDAOImpl;
-	
+
 	@Autowired
 	private NurseDAOImpl nurseDAOImpl;
 	
-
 	
 
-//	@Autowired
-//	private DoctorDAOImpl doctorDAOImpl;
+	// @Autowired
+	// private DoctorDAOImpl doctorDAOImpl;
 
 	@POST
 	@Path("/addPatient")
@@ -58,12 +59,22 @@ public class NurseController {
 	}
 
 	@GET
-//	@RolesAllowed("nurse")
+	// @RolesAllowed("nurse")
 	@PermitAll
 	@Path("/alldoctors")
 	public ArrayList<Employee> getAllDocs() {
 		ArrayList<Employee> empList = nurseDAOImpl.findSpecificEmployees(1);
 		return empList;
+	}
+
+	@POST
+	@RolesAllowed("nurse")
+	@Path("/sendToPatientEHR")
+	public void sendEmailToPatient(Patient patient) {	
+		System.out.println("reached here man");
+		Patient foundPatient = nurseDAOImpl.sendEmailToPatient(patient);
+		PhonesAndMails pnm = new PhonesAndMails();
+		pnm.sendMailDaily(foundPatient);
 	}
 
 }

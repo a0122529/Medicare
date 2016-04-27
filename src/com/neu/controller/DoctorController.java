@@ -22,6 +22,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.neu.dao.DrugAndAllergyCheckDAO;
 import com.neu.dao.impl.DoctorDAOImpl;
 import com.neu.dao.impl.DrugAndAllergyCheckImpl;
+import com.neu.model.DrugFailure;
 import com.neu.model.Drugs;
 import com.neu.model.Encounter;
 import com.neu.model.Patient;
@@ -51,9 +52,13 @@ public class DoctorController {
 	@GET
 	@RolesAllowed("doctor")
 	@Path("/searchPatient/{refNumber}")
-	public ArrayList<Encounter> searchPatient(@PathParam(value = "refNumber") String refNumber) {
+	public ArrayList<Encounter> searchPatient(@PathParam(value = "refNumber") String refNumber)
+			throws JsonProcessingException {
 		// System.out.println(patient.getRefNumber());
 		ArrayList<Encounter> encList = doctorDAOImpl.searchPatientByRefNum(refNumber);
+		// ObjectMapper mapper = new ObjectMapper();
+		// String jsonInString = mapper.writeValueAsString(encList);
+		// System.out.println(jsonInString);
 		return encList;
 	}
 
@@ -73,37 +78,33 @@ public class DoctorController {
 		return wr;
 	}
 
-	@GET
+	@POST
 	@RolesAllowed("doctor")
 	@Path("/patientLabRequests")
-	public ArrayList<WorkRequest> getPatientRequest(String refNumber) {
-		System.out.println("Some number " + refNumber);
-		ArrayList<WorkRequest> patientLabReq = doctorDAOImpl.getPatientLabRequest();
-		return patientLabReq;
+	public ArrayList<WorkRequest> getPatientRequest(Encounter encounter) {
+		return doctorDAOImpl.getPatientLabRequest(encounter);
 	}
 
 	@GET
 	@PermitAll
 	@Path("/allDrugs")
-	public ArrayList<Drugs> getAllDrugs() throws JsonProcessingException {
-		ArrayList<Drugs> drugList= drugAndAllergyCheckImpl.getAllDrugs();
-//		ObjectMapper mapper = new ObjectMapper();
-//		String jsonInString = mapper.writeValueAsString(drugList);
-//	System.out.println(jsonInString);
+	public ArrayList<Drugs> getAllDrugs() {
+		ArrayList<Drugs> drugList = drugAndAllergyCheckImpl.getAllDrugs();
 		return drugList;
 	}
 
-	@GET
+	@POST
 	@RolesAllowed("doctor")
 	@Path("/drug-AllergyCheck")
-	public boolean drugAllergyCheck(Drugs drug, Patient patient) {
-		return drugAndAllergyCheckImpl.drugAllergyCheck();
+	public ArrayList<DrugFailure> drugAllergyCheck(Encounter encounter) {
+		return drugAndAllergyCheckImpl.drugAllergyCheck(encounter);
 	}
-	
-	@GET
-	@RolesAllowed("doctor")
-	@Path("/drug-DrugCheck")
-	public boolean drugdrugCheck(Drugs drug1, Drugs drug2) {
-		return drugAndAllergyCheckImpl.drugAllergyCheck();
-	}
+
+	// @GET
+	// @RolesAllowed("doctor")
+	// @Path("/drug-DrugCheck")
+	// public boolean drugdrugCheck(Drugs drug1, Drugs drug2) {
+	//// return drugAndAllergyCheckImpl.drugAllergyCheck();
+	// return false;
+	// }
 }
