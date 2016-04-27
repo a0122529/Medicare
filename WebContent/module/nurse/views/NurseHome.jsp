@@ -33,8 +33,22 @@
 					<li class="active"><a href="#/nurse">Create Patient Info</a></li>
 					<li><a ng-href="#/createEncounter">Create Encounter</a></li>
 				</ul>
-				<br> <br> <br> <br> <br> <br> <br>
-				<br> <br>
+
+				<br>
+				<h4>
+					<b>Transfer Patient</b>
+				</h4>
+				Physician Email-Id: <input type="text" class="form-control"
+					id="emailId" name="emailId" id="emailId"
+					placeholder="Enter Email Id" ng-model="emailId" /> Patient Ref.
+				Number: <input type="text" class="form-control" id="patId"
+					name="refNumber" ng-model="refNumber" id="refNumber"
+					placeholder="Enter Ref. Num" ng-model="refNumber" /> <input
+					type="submit" class="btn btn-lg btn-primary btn-block"
+					name="addInfo" id="addInfo" value="Send Email"
+					ng-click="sendToPatientEHR(refNumber)" style="margin-top: 17px;" />
+
+
 				<hr>
 				<h4>
 					<b>Patient EHR Copy</b>
@@ -125,9 +139,9 @@
 						<!-- </form>  -->
 					</div>
 				</div>
-				<input type="submit" class="btn btn-lg btn-primary btn-block"
-					name="addInfo" id="addInfo" value="Add Patient"
-					ng-click="addPatient(patient)" />
+				<br> <input type="submit"
+					class="btn btn-lg btn-primary btn-block" name="addInfo"
+					id="addInfo" value="Add Patient" ng-click="addPatient(patient)" />
 			</div>
 
 		</div>

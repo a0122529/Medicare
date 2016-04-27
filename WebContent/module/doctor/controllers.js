@@ -15,8 +15,27 @@ app.controller('PatientDetailsController', [
 		'$routeParams',
 		'PateintDetailsService',
 		'EncounterDetailsService',
+		'SpecificService',
 		function($scope, $rootScope, $routeParams, PateintDetailsService,
-				EncounterDetailsService) {
+				EncounterDetailsService, SpecificService) {
+
+			$scope.allDiagnosis = function() {
+
+				PateintDetailsService.AllDiagnosis(function(data) {
+					$scope.diagnosisList = data;
+				});
+			}
+
+			$scope.specificPatients = function(diagnosisName) {
+				$scope.dataLoading = true;
+				var diagnosis = {};
+				diagnosis.diagnosisName = diagnosisName;
+				SpecificService.SpecificPatients(diagnosis, function(data,
+						header) {
+					
+					$scope.encounterList = data;
+				})
+			}
 
 			$scope.details = function() {
 				$scope.refNumber = $routeParams.refNumber;
@@ -42,11 +61,11 @@ app.controller('PatientDetailsController', [
 				})
 			}
 
-			$scope.updateEnc = function() {
-				var diagnosis = $scope.diagnosis;
-				// alert(diagnosis);
+			$scope.updateEnc = function(encounter) {
+
+				// var diagnosis = $scope.diagnosis;
 				$scope.dataLoading = true;
-				EncounterDetailsService.UPDATEENCOUNTER(diagnosis, function(
+				EncounterDetailsService.UPDATEENCOUNTER(encounter, function(
 						data, header) {
 
 				})
@@ -108,19 +127,13 @@ app.controller('PrescriptionController', [ '$scope', '$rootScope', '$filter',
 			}
 
 		} ])
-app.controller('SpecificPatientController', [
-		'$scope',
-		'$rootScope', 'SpecificService',
-		function($scope, $rootScope, $SpecificService) {
-//
-//			$scope.addEncounter = function() {
-//				alert(JSON.stringify($scope.date));
-//				$scope.dataLoading = true;
-//				EncounterService.AddEncounter($scope.encounter,
-//						$scope.vitalSign, $scope.allergies, $scope.symptoms,
-//						$scope.medications, $scope.date,
-//						function(data, header) {
-//
-//						})
-//			}
+app.controller('SpecificPatientController', [ '$scope', '$rootScope',
+		'SpecificService', function($scope, $rootScope, SpecificService) {
+			// $scope.specificPatients = function(diagnosis) {
+			// $scope.dataLoading = true;
+			// SpecificService.SpecificPatients(diagnosis, function(data,
+			// header) {
+			// $scope.PatientList = data;
+			// })
+			// }
 		} ]);

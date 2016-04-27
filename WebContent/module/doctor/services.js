@@ -22,7 +22,15 @@ angular.module('Doctor')
 //									alert(JSON.stringify(data));
 									callback(data);
 								});
+					}
+					service.AllDiagnosis = function(callback) {
+						$http.get(
+								'http://localhost:8080/MedicalFinalProject/rest/doctor/allDiagnosis').success(
+								function(data, status) {
+									callback(data);
+								});
 					};
+					
 					return service;
 				} ])
 
@@ -36,10 +44,9 @@ angular.module('Doctor')
 				'$timeout',
 				function(Base64, $http, $cookieStore, $rootScope, $timeout) {
 					var service = {};
-					service.UPDATEENCOUNTER = function(diagnosis, callback) {
-						var encounter = $rootScope.encounter;
-						encounter.diagnosis = diagnosis;
-//						alert(JSON.stringify(encounter));
+					service.UPDATEENCOUNTER = function(encounter, callback) {
+						var encounter = $rootScope.encounter;			
+//						encounter.diagnosis = diagnosis;
 						$http.put(
 								'http://localhost:8080/MedicalFinalProject/rest/doctor/updateDiagnosis'
 										,encounter).success(
@@ -129,13 +136,11 @@ angular.module('Doctor')
 	    function (Base64, $http, $cookieStore, $rootScope, $timeout) {
 	    		var service = {};
 	    		
-//        service.SearchPatient = function(refNumber, callback){
-////        	alert(refNumber);
-//        	$http.get('http://localhost:8080/MedicalFinalProject/rest/doctor/searchPatient/' + refNumber)
-//            .success(function (data, status, headers, config) {
-//                callback(data,headers);
-//                
-//            });
-//        };
+        service.SpecificPatients = function(diagnosis, callback){
+        	$http.post('http://localhost:8080/MedicalFinalProject/rest/doctor/specificPatients', diagnosis)
+            .success(function (data, status, headers, config) {
+                callback(data,headers);
+            });
+        };
         return service;
     }]);

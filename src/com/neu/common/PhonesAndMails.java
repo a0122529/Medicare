@@ -101,4 +101,49 @@ public class PhonesAndMails {
 		}
 		return "mail sent successfully";
 	}
+
+	public String sendPhysicianPatientDetail(String physicianEmail, Patient patient) {
+		Encounter enc = patient.getEncounterList().get(0);
+		Properties properties = System.getProperties();
+		properties.setProperty("mail.smtp.host", "smtp.gmail.com");
+		properties.setProperty("mail.smtp.socketFactory.class", SSL_FACTORY);
+		properties.setProperty("mail.smtp.socketFactory.fallback", "false");
+		properties.setProperty("mail.smtp.port", "465");
+		properties.setProperty("mail.smtp.socketFactory.port", "465");
+		properties.setProperty("mail.smtp.user", "kshitijkaushik14@gmailcom");
+		properties.setProperty("mail.smtp.password", "kshitu14187");
+		properties.put("mail.smtp.auth", "true");
+		properties.put("mail.debug", "true");
+		properties.put("mail.store.protocol", "pop3");
+		properties.put("mail.transport.protocol", "smtp");
+		final String username = "kshitijkaushik14@gmail.com";
+		final String password = "kshitu14187";
+		try {
+			Session session = Session.getDefaultInstance(properties);
+			Message message = new MimeMessage(session);
+			message.setFrom(new InternetAddress(mailFrom));
+			message.addRecipient(Message.RecipientType.TO, new InternetAddress(physicianEmail));
+			message.setSubject(
+					"Test results for patient " + patient.getRefNumber() + " for Checkup and Medical Reconcilliation.");
+			message.setContent("Patient Name = " + patient.getName() + "<br><br>"
+					+ "<strong>Vital Sign Information</strong>" + "<strong>Respiratory Rate</strong> = "
+					+ enc.getVitalSign().getRespRate() + "<br>" + "<strong>Weight</strong> = "
+					+ enc.getVitalSign().getWeight() + "<br>" + "<strong>Height</strong> = "
+					+ enc.getVitalSign().getHeight() + "<br>" + "<strong>Blood Pressure</strong> = "
+					+ enc.getVitalSign().getBp() + "<br>" + "<strong>BMI</strong> = " + enc.getVitalSign().getBmi()
+					+ "<br>" + "<strong>Pulse</strong> = " + enc.getVitalSign().getPulse() + "<br>"
+					+ "<strong>Skin Condition</strong> = " + enc.getVitalSign().getSkinCondition() + "<br>"
+
+					, "text/html");
+			Transport transport = session.getTransport("smtp");
+			transport.connect(null, username, password);
+			message.saveChanges();
+			transport.sendMessage(message, message.getAllRecipients());
+			System.out.println("Message Send successfully");
+		} catch (MessagingException mex) {
+			mex.printStackTrace();
+		}
+		return "mail sent successfully";
+	}
+
 }

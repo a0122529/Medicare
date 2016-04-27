@@ -18,7 +18,8 @@
 			<br>
 			<ul class="nav nav-sidebar nav-pills nav-stacked">
 				<li><a href="#/doctor">Home</a></li>
-				<li class="active"><a href="javascript:void(0)">Patient Encounter</a></li>
+				<li class="active"><a href="javascript:void(0)">Patient
+						Encounter</a></li>
 			</ul>
 			<br>
 			<div class="panel panel-default">
@@ -56,11 +57,18 @@
 			</div>
 			<div>
 				<h4>Update Diagnosis - Enc Id {{encounter.encounterId}}</h4>
-				<input type="text" class="form-control" id="diag" id="diagnosis"
+				<div ng-init="allDiagnosis()">
+					<Select type="text" class="form-control" id="diagnosis" 
+						ng-model="encounter.diagnosis" name="diagnosis"
+						style="width: 180px; height: 25px;">
+						<option ng-repeat="diagnosis in diagnosisList">{{diagnosis.diagnosisName}}</option>
+					</Select>
+				</div>
+				<!-- <input type="text" class="form-control" id="diagnosis"
 					ng-model="diagnosis" style="width: 258px; height: 125px;"
-					value="{{encounter.diagnosis}}" /> <br> <input type="button"
+					value="{{encounter.diagnosis}}" />  --><br> <input type="button"
 					class="btn btn-primary" name="addVital" id="addvital"
-					value="Update Diagnosis" ng-click="updateEnc()">
+					value="Update Diagnosis" ng-click="updateEnc(encounter)">
 			</div>
 		</div>
 		<div class="col-lg-9">
@@ -186,9 +194,9 @@
 						value="Lab Test Request"></a>
 				</div>
 				<div class="col-sm-4">
-					<a ng-href="#"><input type="button" ng-click="emailSummary(encounter)"
-						class="btn btn-primary" name="sendRec" id="sendRec"
-						value="Email Summary"></a>
+					<a ng-href="#"><input type="button"
+						ng-click="emailSummary(encounter)" class="btn btn-primary"
+						name="sendRec" id="sendRec" value="Email Summary"></a>
 				</div>
 				<div class="col-sm-4">
 					<a ng-href="#/prescription"><input type="button"

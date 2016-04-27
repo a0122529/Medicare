@@ -11,6 +11,7 @@ import com.neu.common.HashUtil;
 import com.neu.controller.NurseController;
 import com.neu.dao.HibernateUtil;
 import com.neu.model.Allergies;
+import com.neu.model.Diagnosis;
 import com.neu.model.Drugs;
 import com.neu.model.Employee;
 import com.neu.model.Encounter;
@@ -88,7 +89,7 @@ public class Test {
 		labLogin.setPassword(labHash);
 		labLogin.setRole(labRole);
 		labLogin.setEmployee(labEmp);
-		
+
 		session.save(docRole);
 		session.save(nurseRole);
 		session.save(labRole);
@@ -111,6 +112,24 @@ public class Test {
 		session.save(drugs);
 		session.save(drugs1);
 		session.save(drugs2);
+
+		Diagnosis d1 = new Diagnosis();
+		Diagnosis d2 = new Diagnosis();
+		Diagnosis d3 = new Diagnosis();
+		Diagnosis d4 = new Diagnosis();
+		Diagnosis d5 = new Diagnosis();
+
+		d1.setDiagnosisName("Cancer");
+		d2.setDiagnosisName("Asthma");
+		d3.setDiagnosisName("Ulser");
+		d4.setDiagnosisName("Kidney Failure");
+		d5.setDiagnosisName("Bronichitis");
+		session.save(d1);
+		session.save(d2);
+		session.save(d3);
+		session.save(d4);
+		session.save(d5);
+
 		tx.commit();
 		session.close();
 

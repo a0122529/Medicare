@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 
 import com.neu.dao.DAO;
 import com.neu.dao.DoctorDAO;
+import com.neu.model.Diagnosis;
 import com.neu.model.Employee;
 import com.neu.model.Encounter;
 import com.neu.model.Patient;
@@ -85,7 +86,7 @@ public class DoctorDAOImpl extends DAO implements DoctorDAO {
 			encounter.setEncStatus("Closed");
 			session.update(encounter);
 			tx.commit();
-			
+
 		} catch (Exception e) {
 			System.out.println(e);
 		} finally {
@@ -134,6 +135,34 @@ public class DoctorDAOImpl extends DAO implements DoctorDAO {
 		}
 		return wr;
 	}
-	
+
+	@SuppressWarnings("unchecked")
+	public ArrayList<Diagnosis> allDiagnosis() {
+		ArrayList<Diagnosis> diagnosisList = new ArrayList<>();
+		try {
+			Query query = getSession().createQuery("from Diagnosis");
+			diagnosisList = (ArrayList<Diagnosis>) query.list();
+		} catch (Exception e) {
+
+		} finally {
+			getSession().close();
+		}
+		return diagnosisList;
+	}
+
+	@SuppressWarnings("unchecked")
+	public ArrayList<Encounter> findPatientEncUsingDiagnosis(Diagnosis diagnosis) {
+		ArrayList<Encounter> patEncList = new ArrayList<>();
+		try {
+			Query query = getSession().createQuery("from Encounter where diagnosis =:diagnosis group by patientId");
+			query.setString("diagnosis", diagnosis.getDiagnosisName());
+			patEncList = (ArrayList<Encounter>) query.list();
+		} catch (Exception e) {
+
+		} finally {
+			getSession().close();
+		}
+		return patEncList;
+	}
 
 }

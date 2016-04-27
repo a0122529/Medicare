@@ -71,10 +71,17 @@ public class NurseController {
 	@RolesAllowed("nurse")
 	@Path("/sendToPatientEHR")
 	public void sendEmailToPatient(Patient patient) {	
-		System.out.println("reached here man");
 		Patient foundPatient = nurseDAOImpl.sendEmailToPatient(patient);
 		PhonesAndMails pnm = new PhonesAndMails();
 		pnm.sendMailOnRequest(foundPatient);
 	}
+	
+	@POST
+	@RolesAllowed("nurse")
+	@Path("/sendToPhysician")
+	public void sendPatientDataToPhy(){
+		
+	}
+	
 
 }

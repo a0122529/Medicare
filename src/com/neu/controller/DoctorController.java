@@ -23,6 +23,7 @@ import com.neu.common.PhonesAndMails;
 import com.neu.dao.DrugAndAllergyCheckDAO;
 import com.neu.dao.impl.DoctorDAOImpl;
 import com.neu.dao.impl.DrugAndAllergyCheckImpl;
+import com.neu.model.Diagnosis;
 import com.neu.model.DrugFailure;
 import com.neu.model.Drugs;
 import com.neu.model.Encounter;
@@ -110,10 +111,25 @@ public class DoctorController {
 
 	@POST
 	@RolesAllowed("doctor")
-	@Path("emailSummary")
+	@Path("/emailSummary")
 	public void sendSummaryMail(Encounter encounter) {
 		PhonesAndMails pm = new PhonesAndMails();
 		pm.emailSummary(encounter);
+	}
+
+	@GET
+	@RolesAllowed("doctor")
+	@Path("/allDiagnosis")
+	public ArrayList<Diagnosis> allDiagnosis() {
+		return doctorDAOImpl.allDiagnosis();
+
+	}
+
+	@POST
+	@RolesAllowed("doctor")
+	@Path("/specificPatients")
+	public ArrayList<Encounter> specificPatients(Diagnosis diagnosis) {
+		return doctorDAOImpl.findPatientEncUsingDiagnosis(diagnosis);
 	}
 
 }

@@ -24,6 +24,7 @@
 		<mapping class="com.neu.model.Medications"></mapping>
 		<mapping class="com.neu.model.Symptoms"></mapping>
 		<mapping class="com.neu.model.Drugs"></mapping>
+		<mapping class="com.neu.model.Diagnosis"></mapping>
 		<mapping class="com.neu.model.WorkRequest"></mapping>
 
 	</session-factory>
