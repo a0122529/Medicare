@@ -106,7 +106,7 @@
 									Phone: <input type="text" class="form-control" id="phone"
 										ng-model="patient.phone" style="width: 180px; height: 25px;" />
 								</div>
-								<div class="col-lg-8">
+								<div class="col-lg-8" ng-show="patient.age > 13">
 									Smoking <Select type="text" class="form-control" id="smoking"
 										ng-model="patient.smoking" name="smoking"
 										style="width: 180px; height: 25px;">

@@ -6,6 +6,7 @@ import javax.annotation.security.PermitAll;
 import javax.annotation.security.RolesAllowed;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
@@ -32,10 +33,10 @@ public class LabController {
 	@Autowired
 	private NurseDAOImpl nurseDAOImpl;
 
-	@GET
+	@POST
 	@Path("/labAssistantRequest")
-	public ArrayList<WorkRequest> fetchLabRequests() {
-		ArrayList<WorkRequest> wr = labDAOImpl.fetchLabRequest();
+	public ArrayList<WorkRequest> fetchLabRequests(Employee employee) {
+		ArrayList<WorkRequest> wr = labDAOImpl.fetchLabRequest(employee);
 		return wr;
 	}
 	

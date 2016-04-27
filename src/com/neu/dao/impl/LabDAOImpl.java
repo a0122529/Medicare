@@ -17,13 +17,15 @@ import com.neu.model.WorkRequest;
 public class LabDAOImpl extends DAO implements LabDAO {
 
 	@Override
-	public ArrayList<WorkRequest> fetchLabRequest() {
+	public ArrayList<WorkRequest> fetchLabRequest(Employee employee) {
 		// TODO Auto-generated method stub
 		ArrayList<WorkRequest> wr = new ArrayList<>();
 		Session session = getSession();
 		try {
 			Transaction tx = session.beginTransaction();
-			Query query = session.createQuery("from WorkRequest");
+			Query query = session.createQuery("from WorkRequest where status =:status or empId =:empId");
+			query.setString("status", "Open");
+			query.setInteger("empId", employee.getPersonId());
 			wr = (ArrayList<WorkRequest>) query.list();
 		} catch (Exception e) {
 			System.out.println(e);
@@ -43,6 +45,11 @@ public class LabDAOImpl extends DAO implements LabDAO {
 		try {
 			Transaction tx = session.beginTransaction();
 			session.merge(wr);
+			Query query = session.createQuery("from WorkRequest where status =:status or empId =:empId");
+			query.setString("status", "Open");
+			query.setInteger("empId", wr.getEmployee().getPersonId());
+			wrList = (ArrayList<WorkRequest>) query.list();
+			
 			tx.commit();
 		} catch (Exception e) {
 			System.out.println(e);

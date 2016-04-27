@@ -8,7 +8,7 @@ import com.neu.model.WorkRequest;
 public interface LabDAO {
 
 	
-	public abstract ArrayList<WorkRequest> fetchLabRequest();
+	public abstract ArrayList<WorkRequest> fetchLabRequest(Employee employee);
 
 	public abstract ArrayList<WorkRequest> updateWorkReq(WorkRequest wr);
 	

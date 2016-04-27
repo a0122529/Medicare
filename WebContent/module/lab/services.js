@@ -8,9 +8,9 @@ angular.module('Lab')
  function(Base64, $http, $cookieStore, $rootScope, $timeout) {
 	 var service = {};
 	 
-	 service.LabAssistantReq =  function(callback) {
-		 $http.get(
-					'http://localhost:8080/MedicalFinalProject/rest/lab/labAssistantRequest').success(
+	 service.LabAssistantReq =  function(employee, callback) {
+		 $http.post(
+					'http://localhost:8080/MedicalFinalProject/rest/lab/labAssistantRequest', employee).success(
 					function(data, status) {
 						callback(data);
 					});
