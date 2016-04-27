@@ -6,7 +6,8 @@ app.controller('NurseController', [
 		'$scope',
 		'$rootScope',
 		'ContactService',
-		function($scope, $rootScope, ContactService) {
+		'PatientService',
+		function($scope, $rootScope, ContactService, PatientService) {
 
 			$scope.sendToPatientEHR = function(refNumber) {
 				var patient = {};
@@ -25,6 +26,22 @@ app.controller('NurseController', [
 						function(data, header) {
 
 						});
+			};
+
+			$scope.sendPhyRecord = function(refNumber, emailId) {
+				$scope.emaiId = emailId;
+				$scope.dataLoading = true;
+				PatientService.SearchPatient(refNumber, function(data, header) {
+					$scope.foundPatient = data;
+					alert(JSON.stringify(data));
+				});
+
+				$scope.dataLoading = true;
+//				$scope.foundPatient.phyEmail = $scope.emaiId;
+				ContactService.SendPhyRecord($scope.found, function(data,
+						header) {
+
+				});
 			};
 
 			$scope.allDoctors = function() {
@@ -58,16 +75,15 @@ app.controller('EncounterController', [
 		'$rootScope',
 		'EncounterService',
 		function($scope, $rootScope, EncounterService) {
-							
+
 			$scope.addEncounter = function() {
 				alert(JSON.stringify($scope.date));
 				$scope.dataLoading = true;
 				EncounterService.AddEncounter($scope.encounter,
 						$scope.vitalSign, $scope.allergies, $scope.symptoms,
-						$scope.medications, $scope.date, function(data, header) {
+						$scope.medications, $scope.date,
+						function(data, header) {
 
 						})
 			}
 		} ]);
-		
-		

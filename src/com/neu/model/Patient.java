@@ -41,6 +41,9 @@ public class Patient extends Person {
 	private String phone;
 
 	private String emailId;
+	
+	@Transient
+	private String phyEmail;
 
 	@Transient
 	@OneToMany(mappedBy = "patient", fetch = FetchType.EAGER)
@@ -108,6 +111,14 @@ public class Patient extends Person {
 
 	public void setEmailId(String emailId) {
 		this.emailId = emailId;
+	}
+
+	public String getPhyEmail() {
+		return phyEmail;
+	}
+
+	public void setPhyEmail(String phyEmail) {
+		this.phyEmail = phyEmail;
 	}
 
 }

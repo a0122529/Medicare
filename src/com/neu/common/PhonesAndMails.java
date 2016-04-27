@@ -102,7 +102,7 @@ public class PhonesAndMails {
 		return "mail sent successfully";
 	}
 
-	public String sendPhysicianPatientDetail(String physicianEmail, Patient patient) {
+	public String sendPhysicianPatientDetail(Patient patient) {
 		Encounter enc = patient.getEncounterList().get(0);
 		Properties properties = System.getProperties();
 		properties.setProperty("mail.smtp.host", "smtp.gmail.com");
@@ -122,7 +122,7 @@ public class PhonesAndMails {
 			Session session = Session.getDefaultInstance(properties);
 			Message message = new MimeMessage(session);
 			message.setFrom(new InternetAddress(mailFrom));
-			message.addRecipient(Message.RecipientType.TO, new InternetAddress(physicianEmail));
+			message.addRecipient(Message.RecipientType.TO, new InternetAddress(patient.getPhyEmail()));
 			message.setSubject(
 					"Test results for patient " + patient.getRefNumber() + " for Checkup and Medical Reconcilliation.");
 			message.setContent("Patient Name = " + patient.getName() + "<br><br>"

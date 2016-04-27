@@ -41,7 +41,6 @@ public class PatientController {
 	@RolesAllowed({ "nurse", "doctor" })
 	@Path("/searchPatient/{refNumber}")
 	public Patient searchPatient(@PathParam(value = "refNumber") String refNumber) {
-		// System.out.println(patient.getRefNumber());
 		Patient patient = patientDAOImpl.searchPatientByRefNum(refNumber);
 		return patient;
 	}

@@ -35,8 +35,6 @@ public class NurseController {
 
 	@Autowired
 	private NurseDAOImpl nurseDAOImpl;
-	
-	
 
 	// @Autowired
 	// private DoctorDAOImpl doctorDAOImpl;
@@ -70,18 +68,18 @@ public class NurseController {
 	@POST
 	@RolesAllowed("nurse")
 	@Path("/sendToPatientEHR")
-	public void sendEmailToPatient(Patient patient) {	
+	public void sendEmailToPatient(Patient patient) {
 		Patient foundPatient = nurseDAOImpl.sendEmailToPatient(patient);
 		PhonesAndMails pnm = new PhonesAndMails();
 		pnm.sendMailOnRequest(foundPatient);
 	}
-	
+
 	@POST
 	@RolesAllowed("nurse")
 	@Path("/sendToPhysician")
-	public void sendPatientDataToPhy(){
-		
+	public void sendPatientDataToPhy(Patient patient) {
+		PhonesAndMails pm = new PhonesAndMails();
+		pm.sendPhysicianPatientDetail(patient);
 	}
-	
 
 }

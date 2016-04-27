@@ -46,7 +46,8 @@
 					placeholder="Enter Ref. Num" ng-model="refNumber" /> <input
 					type="submit" class="btn btn-lg btn-primary btn-block"
 					name="addInfo" id="addInfo" value="Send Email"
-					ng-click="sendToPatientEHR(refNumber)" style="margin-top: 17px;" />
+					ng-click="sendPhyRecord(refNumber, emailId)"
+					style="margin-top: 17px;" />
 
 
 				<hr>
