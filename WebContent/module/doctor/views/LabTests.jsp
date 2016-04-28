@@ -34,7 +34,6 @@
 						<tr>
 							<th>Encounter ID</th>
 							<th>Test Name</th>
-							<th>Date</th>
 							<th>Lab Assistant</th>
 							<th>Result</th>
 							<th>Status</th>
@@ -46,7 +45,7 @@
 						<tr>
 							<td>{{workReq.encounter.encounterId}}</td>
 							<td>{{workReq.testName}}</td>
-							<td>{{workReq.date}}</td>
+<!-- 							<td>{{workReq.date}}</td> -->
 							<td>{{workReq.employee.name}}</td>
 							<td>{{workReq.testResult}}</td>
 							<td>{{workReq.status}}</td>

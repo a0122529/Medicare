@@ -74,7 +74,6 @@ app.controller('EncounterController', [
 		function($scope, $rootScope, EncounterService) {
 
 			$scope.addEncounter = function() {
-				alert(JSON.stringify($scope.date));
 				$scope.dataLoading = true;
 				EncounterService.AddEncounter($scope.encounter,
 						$scope.vitalSign, $scope.allergies, $scope.symptoms,

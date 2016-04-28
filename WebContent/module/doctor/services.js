@@ -19,7 +19,6 @@ angular.module('Doctor')
 								'http://localhost:8080/MedicalFinalProject/rest/doctor/searchPatient/'
 										+ refNumber).success(
 								function(data, status) {
-//									alert(JSON.stringify(data));
 									callback(data);
 								});
 					}

@@ -33,7 +33,7 @@ app.controller('LabController', [ '$scope', '$rootScope', '$routeParams',
 				// filtering out the object
 				var newTemp = $filter("filter")($rootScope.labAssistantList, {name:$scope.labAssistant});
 				$scope.wr.employee = newTemp[0];
-				alert(JSON.stringify($scope.wr.employee));
+			
 				LabService.UpdateWorkReq($scope.wr, function(data, header) {
 					
 					$scope.workRequestList = data;

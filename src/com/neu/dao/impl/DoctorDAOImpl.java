@@ -45,10 +45,14 @@ public class DoctorDAOImpl extends DAO implements DoctorDAO {
 		// TODO Auto-generated method stub
 		ArrayList<Patient> allPatients = new ArrayList<>();
 		Session session = getSession();
+		Employee emp = new Employee();
 		try {
 			Transaction tx = session.beginTransaction();
-			Query query = session.createQuery("from Patient");
-			// query.setInteger("roleId", roleId);
+			Query docQ = session.createQuery("from Employee where empId =:empId");
+			docQ.setInteger("empId", docId);
+			emp = (Employee) docQ.uniqueResult();
+			Query query = session.createQuery("from Patient where docName =:docName");
+			query.setString("docName", emp.getName());
 			allPatients = (ArrayList<Patient>) query.list();
 			tx.commit();
 		} catch (Exception e) {
